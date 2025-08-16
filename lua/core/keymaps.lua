@@ -15,4 +15,7 @@ map('n', '<leader>f', ":lua require('fzf-lua').live_grep()<CR>", opts)
 map('n', '<leader>b', ":lua require('fzf-lua').buffers()<CR>", opts)
 map('n', '<leader>h', ":lua require('fzf-lua').help_tags()<CR>", opts)
 
+-- 0: go to first column; if already at first column, toggle fold on current line
+map('n', '0', [[col('.') == 1 ? 'za' : '0']], { noremap = true, silent = true, expr = true })
+
 return {}
