@@ -84,4 +84,10 @@ If something is unclear
 - If a requested change touches plugin install strategy or tracking (committing vendor plugins), ask whether to keep plugins out of source control or vendor them in. Also ask whether to adopt a plugin manager.
 - If a requested plugin requires native dependencies (rg, ctags, etc.), ask whether the user wants checks or install instructions added to `PROJECT.md`.
 
-When user satisfy current changes, commit the changes and push to remote.
+# commit changes if use asked
+
+```
+jj ci -m "message, please be short"
+jj mv main --to <new rev>
+jj push main
+```
