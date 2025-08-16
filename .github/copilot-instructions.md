@@ -17,6 +17,10 @@ What an agent can safely do
    - Add any keymaps to `lua/core/keymaps.lua` or export them from the plugin config module.
    - Validate by running headless: `NVIM_APPNAME=neonvim nvim --headless -c 'quit'`.
 
+Research-first workflow
+
+- Before adding a new feature or plugin, use GitHub code search tool to find example configs/usages (e.g., plugin READMEs, minimal Neovim setups). Adapt only the minimal patterns needed into `lua/core/plugin_configs/<plugin>.lua`, wire it via `lua/core/plugins.lua`, then validate headless.
+
 2. Change editor options, keymaps, or autocmds:
    - Edit `lua/core/options.lua`, `lua/core/keymaps.lua`, `lua/core/autocmds.lua` respectively.
    - Keep changes small and test with headless Neovim.
@@ -73,4 +77,4 @@ If something is unclear
 - If a requested change touches plugin install strategy or tracking (committing vendor plugins), ask whether to keep plugins out of source control or vendor them in. Also ask whether to adopt a plugin manager.
 - If a requested plugin requires native dependencies (rg, ctags, etc.), ask whether the user wants checks or install instructions added to `PROJECT.md`.
 
-End of instructions. Update on request.
+When user satisfy current changes, commit the changes and push to remote.
