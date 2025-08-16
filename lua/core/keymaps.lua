@@ -14,5 +14,8 @@ map('n', '<leader>p', ":lua require('fzf-lua').files()<CR>", opts)
 map('n', '<leader>f', ":lua require('fzf-lua').live_grep()<CR>", opts)
 map('n', '<leader>b', ":lua require('fzf-lua').buffers()<CR>", opts)
 
+-- legendary.nvim keymap (keybind finder)
+map('n', '<leader>k', ":lua require('legendary').find()<CR>", opts)
+
 
 return {}

@@ -18,6 +18,8 @@ local plugins = {
   'https://github.com/nvim-lualine/lualine.nvim',
   -- FZF Lua (fuzzy finder)
   'https://github.com/ibhagwan/fzf-lua',
+  -- Legendary.nvim (keybind finder and management)
+  'https://github.com/mrjones2014/legendary.nvim',
 }
 
 -- Add and optionally load plugins. Using confirm=false will skip interactive prompt in headless.
@@ -33,5 +35,6 @@ end
 -- plugin is not present.
 pcall(require, 'core.plugin_configs.lualine')
 pcall(require, 'core.plugin_configs.fzf')
+pcall(require, 'core.plugin_configs.legendary')
 
 return M
