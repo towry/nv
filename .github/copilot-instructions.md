@@ -14,12 +14,12 @@ What an agent can safely do
 1. Add a new plugin:
    - Add its `src` (Git URL) to the `plugins` table in `lua/core/plugins.lua`.
    - Create `lua/core/plugin_configs/<plugin>.lua` that `pcall(require, '<module>')` and configure the plugin safely.
-   - Add any keymaps to `lua/core/keymaps.lua` or export them from the plugin config module.
+   - Add any keymaps to `lua/core/keymaps.lua` or export them from the plugin config module, group plugins keymaps together at bottom, put common keymaps at the top.
    - Validate by running headless: `NVIM_APPNAME=neonvim nvim --headless -c 'quit'`.
 
 Research-first workflow
 
-- Before adding a new feature or plugin, use GitHub code search tool to find example configs/usages (e.g., plugin READMEs, minimal Neovim setups). Adapt only the minimal patterns needed into `lua/core/plugin_configs/<plugin>.lua`, wire it via `lua/core/plugins.lua`, then validate headless.
+- Before adding a new feature or plugin, use GitHub search_code tool to find example configs/usages (e.g., plugin READMEs, minimal Neovim setups). Adapt only the minimal patterns needed into `lua/core/plugin_configs/<plugin>.lua`, wire it via `lua/core/plugins.lua`, then validate headless.
 
 2. Change editor options, keymaps, or autocmds:
    - Edit `lua/core/options.lua`, `lua/core/keymaps.lua`, `lua/core/autocmds.lua` respectively.
@@ -33,6 +33,13 @@ Project-specific conventions
 - Single responsibility config modules: plugin setup must be isolated in `lua/core/plugin_configs/*` and should not error if the plugin isn't installed (wrap with `pcall(require, '...')`).
 - Use `vim.pack.add()` with `{ confirm = false }` in headless contexts. Do not assume interactive prompts.
 - Keymaps: global/basic ones live in `lua/core/keymaps.lua`. Plugin-specific keymaps belong in the plugin's config file.
+- Keymap strategy:
+   - Avoid single-key mappings after leader (e.g., `<leader>w`) as they block entire key trees
+   - Use descriptive multi-key sequences that follow logical namespaces (e.g., `<leader>ft` for file-tree)
+   - Group related actions with common prefixes (e.g., `<leader>g?` for git operations)
+   - Document keymap categories in comments within keymaps.lua
+   - Create keys only for frequently used actions
+   - Use legendary.nvim for other actions
 - Avoid committing third-party plugin checkouts: `.gitignore` excludes `pack/plugins/start/*` and `pack/plugins/opt/*`.
 
 Build/test/debug workflow
