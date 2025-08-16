@@ -1,0 +1,32 @@
+# Ignore editor temporary files and OS artifacts
+*.swp
+*.swo
+*.swn
+*~
+.DS_Store
+.Trash-*
+
+# Vim/Neovim undo, swap, backups
+undo/
+swap/
+backup/
+
+# Node / python / build artifacts (if appear)
+node_modules/
+dist/
+build/
+*.pyc
+
+# Logs and caches
+log/
+*.log
+.cache/
+
+# Ignore plugin checkouts (don't track plugins installed by vim.pack)
+# If you prefer to check plugins into the repository, remove these lines.
+pack/plugins/start/*
+pack/plugins/opt/*
+
+# Ignore IDE/editor project files
+.vscode/
+.idea/
