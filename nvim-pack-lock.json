@@ -1,0 +1,12 @@
+{
+  "plugins": {
+    "fzf-lua": [],
+    "legendary.nvim": [],
+    "lualine.nvim": [],
+    "plenary.nvim": [],
+    "which-key.nvim": {
+      "rev": "b4177e3",
+      "src": "https://github.com/folke/which-key.nvim"
+    }
+  }
+}

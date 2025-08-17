@@ -61,17 +61,6 @@ pcall(function()
       priority = true,
     },
 
-    -- Use a custom formatter for better display with fzf-lua
-    default_item_formatter = function(item, mode)
-      local legendary_ui = require('legendary.ui.format')
-      local column_values = legendary_ui.default_format(item)
-      -- Format for better fzf-lua display
-      local icon = column_values[1] or ''
-      local description = column_values[2] or ''
-      local keys = column_values[3] or ''
-      return string.format('%s %s - %s', icon, description, keys)
-    end,
-
     -- Default options for keymaps
     default_opts = {
       keymaps = {
