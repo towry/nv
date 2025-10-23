@@ -46,7 +46,9 @@ wk.add({
   { "<leader>g", group = "Git" },
   { "<leader>gh", group = "Hunk" },
   { "<leader>l", group = "LSP" },
+  { "<leader>t", group = "Tasks" },
   { "<leader>u", group = "Toggle/UI" },
+  { "<C-w>", group = "Windows" },
   { "<C-c>", group = "Control" },
   { "<localleader>", group = "Local Leader" },
 }, { mode = "n" })
@@ -79,6 +81,9 @@ vim.defer_fn(function()
       end
     end, desc = "Toggle Copilot" },
   }, { mode = "n" })
+
+  -- Which-key labels for Overseer are picked up via desc on keymaps in normal mode under <leader>t group
+
 
   -- Insert mode Copilot mappings
   wk.add({
@@ -143,6 +148,13 @@ local function register_complex_mappings()
     require('mini.jump2d').start()
   end, { desc = "Jump: labelled (mini.jump2d)" })
 
+  -- Tasks: Overseer basic controls
+  vim.keymap.set("n", "<leader>tt", ":OverseerRun<cr>", { desc = "Tasks: Run" })
+  vim.keymap.set("n", "<leader>tr", ":OverseerRunCmd<cr>", { desc = "Tasks: Run command" })
+  vim.keymap.set("n", "<leader>tl", ":OverseerToggle<cr>", { desc = "Tasks: List/Toggle" })
+  vim.keymap.set("n", "<leader>ta", ":OverseerQuickAction<cr>", { desc = "Tasks: Quick action" })
+  vim.keymap.set("n", "<leader>tq", ":OverseerQuickAction open quickfix<cr>", { desc = "Tasks: Open quickfix for last task" })
+
   -- Quick mappings
   vim.keymap.set("n", "Q", "<cmd>qall<cr>", { desc = "Quit all" })
   vim.keymap.set("n", ";", ":", { desc = "Command mode" })
@@ -163,6 +175,18 @@ local function register_complex_mappings()
   vim.keymap.set("n", "<C-c><C-f>", drop_float_to_new_tab, { desc = "Drop float win to new tab" })
   vim.keymap.set("n", "<C-c><C-d>", smart_delete_buffer, { desc = "Delete current buffer" })
 
+  -- Smart-splits: directional move with Ctrl + h/j/k/l
+  vim.keymap.set("n", "<C-h>", function() require('smart-splits').move_cursor_left() end, { desc = "Window focus left" })
+  vim.keymap.set("n", "<C-j>", function() require('smart-splits').move_cursor_down() end, { desc = "Window focus down" })
+  vim.keymap.set("n", "<C-k>", function() require('smart-splits').move_cursor_up() end, { desc = "Window focus up" })
+  vim.keymap.set("n", "<C-l>", function() require('smart-splits').move_cursor_right() end, { desc = "Window focus right" })
+
+  -- Smart-splits: resizing with Alt + h/j/k/l
+  vim.keymap.set("n", "<A-h>", function() require('smart-splits').resize_left() end, { desc = "Resize split left" })
+  vim.keymap.set("n", "<A-j>", function() require('smart-splits').resize_down() end, { desc = "Resize split down" })
+  vim.keymap.set("n", "<A-k>", function() require('smart-splits').resize_up() end, { desc = "Resize split up" })
+  vim.keymap.set("n", "<A-l>", function() require('smart-splits').resize_right() end, { desc = "Resize split right" })
+
   -- Quickfix toggle
   vim.keymap.set("n", "<A-q>", function() 
     if vim.bo.filetype == "qf" then
@@ -171,6 +195,9 @@ local function register_complex_mappings()
       vim.cmd("copen")
     end
   end, { desc = "Switch quickfix window" })
+
+  -- NOTE: Overseer keymaps defined above rely on overseer.nvim being present;
+  -- they are safe even if plugin is not yet loaded (commands are defined by plugin).
 
   -- Fold navigation
   vim.keymap.set("n", "H", function() 
@@ -214,6 +241,6 @@ local function register_complex_mappings()
 end
 
 -- Register complex mappings after plugins are loaded
-vim.defer_fn(register_complex_mappings, 100)
+vim.defer_fn(register_complex_mappings, 100) -- NOTE: defer ensures which-key UI is ready
 
 return M

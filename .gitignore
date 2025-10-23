@@ -30,3 +30,5 @@ pack/plugins/opt/*
 # Ignore IDE/editor project files
 .vscode/
 .idea/
+pack/
+tmp/
