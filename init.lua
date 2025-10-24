@@ -4,6 +4,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 
+pcall(require, "settings_env")
+
 -- bootstrap: add lua path based on current init.lua location (works with -u)
 local config_path = vim.fn.fnamemodify(vim.env.MYVIMRC or (debug.getinfo(1, 'S').source:sub(2)), ':h')
 package.path = config_path .. '/lua/?.lua;' .. config_path .. '/lua/?/init.lua;' .. package.path

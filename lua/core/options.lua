@@ -2,7 +2,7 @@
 local o = vim.opt
 
 o.number = true
-o.relativenumber = false
+o.relativenumber = true
 o.cursorline = true
 o.clipboard = 'unnamedplus'
 o.expandtab = true
