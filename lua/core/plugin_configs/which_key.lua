@@ -220,12 +220,6 @@ local function register_complex_mappings()
   -- Select pasted text
   vim.keymap.set("n", "g<C-v>", "`[v`]", { desc = "Select pasted text" })
 
-  -- Git mappings (if in git context)
-  if vim.fn.exists(':Git') == 2 then
-    vim.keymap.set("n", "<localleader>w", ":w|cq 0<cr>", { desc = "Git mergetool: prepare write and exit safe" })
-    vim.keymap.set("n", "<localleader>c", ":cq 1<cr>", { desc = "Git mergetool: Prepare to abort" })
-  end
-
   -- LSP mappings (when LSP is attached)
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)

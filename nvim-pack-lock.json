@@ -4,7 +4,10 @@
       "rev": "9fd3d5e",
       "src": "https://github.com/stevearc/conform.nvim"
     },
-    "copilot.vim": [],
+    "copilot.vim": {
+      "rev": "da369d9",
+      "src": "https://github.com/github/copilot.vim"
+    },
     "diffconflicts": {
       "rev": "4972d14",
       "src": "https://github.com/whiteinge/diffconflicts"
@@ -13,13 +16,22 @@
       "rev": "7252779",
       "src": "https://github.com/willothy/flatten.nvim"
     },
-    "fzf-lua": [],
-    "gitsigns.nvim": [],
+    "fzf-lua": {
+      "rev": "fb654cb",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
+    "gitsigns.nvim": {
+      "rev": "20ad441",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
     "jj-diffconflicts": {
       "rev": "bee239e",
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
     },
-    "legendary.nvim": [],
+    "legendary.nvim": {
+      "rev": "6de819b",
+      "src": "https://github.com/mrjones2014/legendary.nvim"
+    },
     "mason-lspconfig.nvim": {
       "rev": "2304ff6",
       "src": "https://github.com/williamboman/mason-lspconfig.nvim"
@@ -28,7 +40,10 @@
       "rev": "ad7146a",
       "src": "https://github.com/williamboman/mason.nvim"
     },
-    "mini.nvim": [],
+    "mini.nvim": {
+      "rev": "64a23d0",
+      "src": "https://github.com/echasnovski/mini.nvim"
+    },
     "nvim-lspconfig": {
       "rev": "ececa53",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -46,8 +61,14 @@
       "rev": "c77c78b",
       "src": "https://github.com/stevearc/overseer.nvim"
     },
-    "plenary.nvim": [],
-    "vim-fugitive": [],
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "vim-fugitive": {
+      "rev": "61b51c0",
+      "src": "https://github.com/tpope/vim-fugitive"
+    },
     "which-key.nvim": {
       "rev": "b4177e3",
       "src": "https://github.com/folke/which-key.nvim"

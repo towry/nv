@@ -20,6 +20,7 @@ return {
     config.defaults.actions.files["ctrl-o"] = local_actions.files_open_in_window
     
     require("fzf-lua").setup({
+      "defaults",
       defaults = {
         formatter = "path.filename_first",
         file_icons = true,
@@ -47,10 +48,10 @@ return {
         ["--cycle"] = true,
         ["--no-separator"] = "",
       },
-         files = {
-           git_icons = false,
-           file_icons = false,
-         },
+     files = {
+       git_icons = false,
+       file_icons = false,
+     },
       grep = {
         rg_glob = true,
         rg_glob_fn = function(query, opts)
