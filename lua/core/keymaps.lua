@@ -25,5 +25,19 @@ map('n', '<leader>ft', ":lua require('fzf-lua').lsp_typedefs()<CR>", opts)
 -- legendary.nvim keymap (keybind finder)
 map('n', '<leader>k', ":lua require('legendary').find()<CR>", opts)
 
+-- Git mergetool conditional keymaps
+local git_utils = require('utils.git')
+if git_utils.is_mergetool() then
+  vim.keymap.set('n', '<localleader>w', ':w|cq 0<CR>', {
+    desc = 'Mergetool: write and exit safely',
+    nowait = true,
+    noremap = true
+  })
+  vim.keymap.set('n', '<localleader>c', ':cq 1<CR>', {
+    desc = 'Mergetool: abort merge',
+    nowait = true,
+    noremap = true
+  })
+end
 
 return {}

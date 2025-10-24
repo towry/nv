@@ -31,7 +31,9 @@ end
 
 -- FzfLua keymaps
 map("n", "<Leader>f.", "<cmd>FzfLua<cr>", { desc = "Open FzfLua" })
-map("n", "<localleader>,", "<cmd>FzfLua buffers<cr>", { desc = "Buffers or recent buffers" })
+map("n", "<localleader>,", function()
+  require("fzf-lua").oldfiles({ include_current_session = true })
+end, { desc = "Recent files and buffers" })
 map("n", "<leader>fb", "<cmd>FzfLua grep_curbuf<cr>", { desc = "Find in current buffer" })
 map("n", "<Leader>fq", "<cmd>FzfLua quickfix<cr>", { desc = "Quickfix List" })
 map("n", "<Leader>fj", "<cmd>FzfLua jumps<cr>", { desc = "Jumplist" })

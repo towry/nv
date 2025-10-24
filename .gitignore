@@ -32,3 +32,5 @@ pack/plugins/opt/*
 .idea/
 pack/
 tmp/
+llm/kiro/
+llm/diff

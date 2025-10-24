@@ -24,6 +24,9 @@ local plugins = {
   -- Git integration
   'https://github.com/tpope/vim-fugitive',
   'https://github.com/lewis6991/gitsigns.nvim',
+  -- Git conflict resolution
+  'https://github.com/whiteinge/diffconflicts',
+  'https://github.com/rafikdraoui/jj-diffconflicts',
   -- AI Copilot
   'https://github.com/github/copilot.vim',
   -- Mini.nvim (library of Lua modules)
@@ -33,6 +36,8 @@ local plugins = {
   'https://github.com/stevearc/overseer.nvim',
   -- Smart window splits management
   'https://github.com/mrjones2014/smart-splits.nvim',
+  -- File explorer
+  'https://github.com/stevearc/oil.nvim',
   -- LSP plugins
   'https://github.com/williamboman/mason.nvim',
   'https://github.com/williamboman/mason-lspconfig.nvim',
@@ -93,6 +98,7 @@ pcall(require, 'core.plugin_configs.mini_surround')
 pcall(require, 'core.plugin_configs.mini_operators')
 pcall(require, 'core.plugin_configs.treesitter')
 pcall(require, 'core.plugin_configs.formatting')
+pcall(require, 'core.plugin_configs.oil')
 pcall(require, 'core.plugin_configs.lsp_plugin')
 -- NOTE: LSP core behavior lives in core/lsp.lua (native API); optional installers in core/plugin_configs/lsp_plugin.lua
 pcall(require, 'core.lsp')

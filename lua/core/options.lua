@@ -24,4 +24,9 @@ o.updatetime = 300
 o.splitright = true
 o.splitbelow = true
 
+-- folding with treesitter
+o.foldmethod = 'expr'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldenable = false
+
 return {}

@@ -5,12 +5,20 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "copilot.vim": [],
+    "diffconflicts": {
+      "rev": "4972d14",
+      "src": "https://github.com/whiteinge/diffconflicts"
+    },
     "flatten.nvim": {
       "rev": "7252779",
       "src": "https://github.com/willothy/flatten.nvim"
     },
     "fzf-lua": [],
     "gitsigns.nvim": [],
+    "jj-diffconflicts": {
+      "rev": "bee239e",
+      "src": "https://github.com/rafikdraoui/jj-diffconflicts"
+    },
     "legendary.nvim": [],
     "mason-lspconfig.nvim": {
       "rev": "2304ff6",
@@ -29,6 +37,10 @@
       "rev": "42fc28ba",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
+    },
+    "oil.nvim": {
+      "rev": "7e1cd77",
+      "src": "https://github.com/stevearc/oil.nvim"
     },
     "overseer.nvim": {
       "rev": "c77c78b",

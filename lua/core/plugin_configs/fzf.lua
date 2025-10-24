@@ -47,10 +47,10 @@ return {
         ["--cycle"] = true,
         ["--no-separator"] = "",
       },
-      files = {
-        git_icons = false,
-        file_icons = true,
-      },
+         files = {
+           git_icons = false,
+           file_icons = false,
+         },
       grep = {
         rg_glob = true,
         rg_glob_fn = function(query, opts)
