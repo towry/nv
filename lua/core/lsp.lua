@@ -20,8 +20,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local bufnr = args.buf
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Goto definition', buffer = bufnr })
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'References', buffer = bufnr })
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Goto declaration', buffer = bufnr })
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'Implementations', buffer = bufnr })
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover', buffer = bufnr })
     vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { desc = 'LSP rename', buffer = bufnr })
     vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { desc = 'Code action', buffer = bufnr })
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Prev diagnostic', buffer = bufnr })
@@ -32,58 +33,60 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- Native LSP defaults and enablement using Neovim 0.12+ API
+-- Native LSP enablement using Neovim 0.12+ API
 do
-  local ok_config = type(vim.lsp.config) == 'function'
   local ok_enable = type(vim.lsp.enable) == 'function'
-  if not (ok_config and ok_enable) then
-    -- NOTE: Silent skip per user request (no warnings). Native LSP setup requires newer Neovim.
+  if not ok_enable then
+    -- NOTE: Silent skip per user request (no warnings). Native LSP enable() not available.
     return
-  else
-    -- Apply shared defaults; keep minimal and let per-server configs augment
-    vim.lsp.config('*', {})
+  end
 
-    -- Default server set (without TS; handle TS with preference below)
-    local default_servers = {
-      'lua_ls', 'html', 'cssls', 'pyright', 'elixirls', 'bashls', 'marksman', 'jsonls', 'yamlls', 'taplo',
-    }
+  -- If vim.lsp.config is unavailable or not a table, rely on "config-as-files" (lua/lsp/*.lua on runtimepath).
+  local default_servers = {
+    'lua_ls', 'html', 'cssls', 'pyright', 'elixirls', 'bashls', 'marksman', 'jsonls', 'yamlls', 'taplo',
+  }
+  local servers = vim.g.lsp_enabled_servers or default_servers
 
-    local servers = vim.g.lsp_enabled_servers or default_servers
-
-    -- Determine TypeScript server preference: ts_ls first, fallback to tsserver if available
-    local ts_choice
-    do
-      local ok_tsls, _ = pcall(require, 'lsp.ts_ls')
-      if ok_tsls then
-        ts_choice = 'ts_ls'
-      else
-        local ok_tss, _ = pcall(require, 'lsp.tsserver')
-        if ok_tss then ts_choice = 'tsserver' end
-      end
+  -- Determine TypeScript server preference: ts_ls first, fallback to tsserver if available
+  do
+    local ok_tsls = pcall(require, 'lsp.ts_ls')
+    if ok_tsls then
+      table.insert(servers, 'ts_ls')
+    else
+      local ok_tss = pcall(require, 'lsp.tsserver')
+      if ok_tss then table.insert(servers, 'tsserver') end
     end
-    if ts_choice then table.insert(servers, ts_choice) end
+  end
 
-    -- Load per-server configs if present and enable only those with configs
-    local to_enable = {}
-    for _, name in ipairs(servers) do
-      local ok_mod, conf = pcall(require, 'lsp.' .. name)
-      if ok_mod and type(conf) == 'table' then
+  -- Only enable servers that have a config-as-file present
+  local to_enable = {}
+  for _, name in ipairs(servers) do
+    local ok_mod, conf = pcall(require, 'lsp.' .. name)
+    if ok_mod and type(conf) == 'table' then
+      if type(vim.lsp.config) == 'table' then
+        -- Explicitly register the server configuration using table assignment (Neovim 0.12+)
+        vim.lsp.config[name] = conf
+      elseif type(vim.lsp.config) == 'function' then
+        -- Fallback for older API (if function form exists)
         vim.lsp.config(name, conf)
-        table.insert(to_enable, name)
-      else
-        vim.schedule(function()
-          vim.notify('No config for LSP server "' .. name .. '". Create lua/lsp/' .. name .. '.lua or install via mason.', vim.log.levels.WARN)
-        end)
       end
-    end
-
-    if #to_enable > 0 then
-      vim.lsp.enable(to_enable)
+      table.insert(to_enable, name)
     else
       vim.schedule(function()
-        vim.notify('No LSP servers enabled (missing configs). See lua/lsp/*.lua.', vim.log.levels.INFO)
+        vim.notify('LSP: missing config file for "' .. name .. '" (lua/lsp/' .. name .. '.lua). Skipping.', vim.log.levels.WARN)
       end)
     end
+  end
+
+  if #to_enable > 0 then
+    for _, name in ipairs(to_enable) do
+      -- Enable each server explicitly to avoid any ambiguity in list handling
+      vim.lsp.enable(name)
+    end
+  else
+    vim.schedule(function()
+      vim.notify('LSP: no servers enabled (no config files found).', vim.log.levels.INFO)
+    end)
   end
 end
 

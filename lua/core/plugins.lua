@@ -36,8 +36,8 @@ local plugins = {
   -- LSP plugins
   'https://github.com/williamboman/mason.nvim',
   'https://github.com/williamboman/mason-lspconfig.nvim',
-  -- Treesitter for syntax highlighting
-  'https://github.com/nvim-treesitter/nvim-treesitter',
+  -- Treesitter for syntax highlighting (using main branch for active development)
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
   -- Formatting
   'https://github.com/stevearc/conform.nvim',
 }

@@ -1,5 +1,5 @@
 -- Native LSP config for Elixir (ElixirLS)
--- Consumed by vim.lsp.config('elixirls', conf)
+-- Consumed by vim.lsp.config.elixirls = conf
 return {
   cmd = { 'elixir-ls' },
   filetypes = { 'elixir', 'eelixir', 'heex', 'surface' },

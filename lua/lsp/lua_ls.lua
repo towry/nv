@@ -1,5 +1,5 @@
 -- Native LSP config for Lua (LuaLS)
--- Consumed by vim.lsp.config('lua_ls', conf)
+-- Consumed by vim.lsp.config.lua_ls = conf
 return {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },

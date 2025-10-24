@@ -1,5 +1,5 @@
 -- Native LSP config for JSON/JSONC
--- Consumed by vim.lsp.config('jsonls', conf)
+-- Consumed by vim.lsp.config.jsonls = conf
 return {
   cmd = { 'vscode-json-language-server', '--stdio' },
   filetypes = { 'json', 'jsonc' },

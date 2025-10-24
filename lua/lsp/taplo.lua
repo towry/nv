@@ -1,5 +1,5 @@
 -- Native LSP config for TOML (taplo)
--- Consumed by vim.lsp.config('taplo', conf)
+-- Consumed by vim.lsp.config.taplo = conf
 return {
   cmd = { 'taplo', 'lsp', 'stdio' },
   filetypes = { 'toml' },

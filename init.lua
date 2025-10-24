@@ -23,11 +23,5 @@ for _, mod in ipairs(core) do
 end
 
 -- lightweight status line
+-- TODO: move to options.lua
 vim.o.laststatus = 2
-
--- Helpful message
-vim.api.nvim_create_autocmd('VimEnter', { once = true, callback = function()
-  vim.defer_fn(function()
-    print('neonvim: minimal config loaded')
-  end, 100)
-end })

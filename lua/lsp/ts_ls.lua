@@ -1,5 +1,5 @@
 -- Native LSP config for TypeScript/JavaScript (prefer VTSLS if present)
--- Consumed by vim.lsp.config('ts_ls', conf)
+-- Consumed by vim.lsp.config.ts_ls = conf
 -- NOTE: core/lsp.lua prefers this over tsserver when this module exists
 local cmd
 if vim.fn.executable('vtsls') == 1 then

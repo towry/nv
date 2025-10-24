@@ -1,5 +1,5 @@
 -- Native LSP config for TypeScript/JavaScript using typescript-language-server
--- Consumed by vim.lsp.config('tsserver', conf)
+-- Consumed by vim.lsp.config.tsserver = conf
 return {
   cmd = { 'typescript-language-server', '--stdio' },
   filetypes = {

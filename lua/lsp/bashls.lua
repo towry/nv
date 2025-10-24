@@ -1,5 +1,5 @@
 -- Native LSP config for Bash/sh
--- Consumed by vim.lsp.config('bashls', conf)
+-- Consumed by vim.lsp.config.bashls = conf
 return {
   cmd = { 'bash-language-server', 'start' },
   filetypes = { 'sh', 'bash', 'zsh' },
