@@ -145,7 +145,6 @@ end
 M.setup = function()
   local conform_ok, conform = pcall(require, "conform")
   if not conform_ok then
-    vim.notify("conform.nvim not found", vim.log.levels.ERROR)
     return
   end
   

@@ -8,60 +8,30 @@ pcall(function()
 
   -- Set up legendary with fzf-lua UI provider
   legendary.setup({
-    -- Keybinds will be automatically sourced from which-key.nvim
-    -- and any other sources you configure
-    select_prompt = ' legendary.nvim ',
+    select_prompt = ' legendary.nvim ',
     include_builtin = true,
     include_legendary_cmds = true,
     include_auto_groups = false,
 
-    -- Use fzf-lua as the UI provider for better select experience
-    -- This requires dressing.nvim or direct fzf-lua integration
-    ui = {
-      -- Configure fzf-lua as the select backend
-      select = {
-        -- Use fzf-lua for the select UI
-        backend = 'fzf_lua',
-        -- fzf-lua specific options
-        fzf_lua = {
-          -- Custom fzf-lua options for legendary.nvim
-          winopts = {
-            width = 0.8,
-            height = 0.6,
-            border = 'rounded',
-          },
-          -- Prompt customization
-          prompt = ' legendary.nvim > ',
-          -- Additional fzf options
-          fzf_opts = {
-            ['--layout'] = 'reverse',
-            ['--info'] = 'inline',
-            ['--pointer'] = '▶',
-            ['--marker'] = '✓',
-          },
-        },
-      },
+    extensions = {
+      lazy_nvim = false,
+      which_key = false,
+      diffview = false,
     },
 
-    -- Customize the icons
     icons = {
-      keymap = ' ',
-      command = ' ',
+      keymap = ' ',
+      command = ' ',
       fn = '󰡱 ',
-      itemgroup = ' ',
+      itemgroup = ' ',
     },
 
-    -- Customize the sorting
     sort = {
-      -- Sort by frequency (most used first)
-      frequency = false,
-      -- Sort by most recently used
-      recent = false,
-      -- Sort by priority (set via legendary.keymap/set/etc.)
-      priority = true,
+      most_recent_first = false,
+      user_items_first = true,
+      frecency = false,
     },
 
-    -- Default options for keymaps
     default_opts = {
       keymaps = {
         silent = true,
@@ -69,6 +39,11 @@ pcall(function()
       },
     },
   })
+
+  local ok_fzf = pcall(require, 'fzf-lua')
+  if ok_fzf then
+    require('fzf-lua').register_ui_select()
+  end
 end)
 
 return M

@@ -34,8 +34,7 @@ local plugins = {
   -- Term/session flatten and task runner
   'https://github.com/willothy/flatten.nvim',
   'https://github.com/stevearc/overseer.nvim',
-  -- Smart window splits management
-  'https://github.com/mrjones2014/smart-splits.nvim',
+
   -- File explorer
   'https://github.com/stevearc/oil.nvim',
   -- LSP plugins
@@ -116,17 +115,6 @@ pcall(function()
   require('overseer').setup({})
 end)
 
--- Smart-splits: directional movement and resizing; avoid conflicts with existing <C-w> hydra
-pcall(function()
-  local ok, ss = pcall(require, 'smart-splits')
-  if not ok then return end
-  ss.setup({
-    -- NOTE: Keep defaults minimal; no tmux/wezterm integration unless configured by user
-    -- Resize mode not enabled to avoid shadowing existing mappings
-    ignored_filetypes = { 'nofile', 'quickfix', 'prompt', 'help' },
-    ignored_buftypes = { 'nofile', 'terminal' },
-    -- Do not override_directory (keep splits as-is)
-  })
-end)
+
 
 return M

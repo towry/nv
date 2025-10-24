@@ -175,17 +175,15 @@ local function register_complex_mappings()
   vim.keymap.set("n", "<C-c><C-f>", drop_float_to_new_tab, { desc = "Drop float win to new tab" })
   vim.keymap.set("n", "<C-c><C-d>", smart_delete_buffer, { desc = "Delete current buffer" })
 
-  -- Smart-splits: directional move with Ctrl + h/j/k/l
-  vim.keymap.set("n", "<C-h>", function() require('smart-splits').move_cursor_left() end, { desc = "Window focus left" })
-  vim.keymap.set("n", "<C-j>", function() require('smart-splits').move_cursor_down() end, { desc = "Window focus down" })
-  vim.keymap.set("n", "<C-k>", function() require('smart-splits').move_cursor_up() end, { desc = "Window focus up" })
-  vim.keymap.set("n", "<C-l>", function() require('smart-splits').move_cursor_right() end, { desc = "Window focus right" })
+  vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window focus left" })
+  vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Window focus down" })
+  vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Window focus up" })
+  vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window focus right" })
 
-  -- Smart-splits: resizing with Alt + h/j/k/l
-  vim.keymap.set("n", "<A-h>", function() require('smart-splits').resize_left() end, { desc = "Resize split left" })
-  vim.keymap.set("n", "<A-j>", function() require('smart-splits').resize_down() end, { desc = "Resize split down" })
-  vim.keymap.set("n", "<A-k>", function() require('smart-splits').resize_up() end, { desc = "Resize split up" })
-  vim.keymap.set("n", "<A-l>", function() require('smart-splits').resize_right() end, { desc = "Resize split right" })
+  vim.keymap.set("n", "<A-h>", "<C-w><", { desc = "Resize split left" })
+  vim.keymap.set("n", "<A-j>", "<C-w>-", { desc = "Resize split down" })
+  vim.keymap.set("n", "<A-k>", "<C-w>+", { desc = "Resize split up" })
+  vim.keymap.set("n", "<A-l>", "<C-w>>", { desc = "Resize split right" })
 
   -- Quickfix toggle
   vim.keymap.set("n", "<A-q>", function() 

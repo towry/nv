@@ -45,6 +45,18 @@ map("n", "<Leader>ff", function()
   })
 end, { desc = "Find files" })
 
+map("n", "<Leader>fB", function()
+  require("fzf-lua").buffers()
+end, { desc = "Find buffers" })
+
+map("n", "<Leader>fo", function()
+  require("fzf-lua").oldfiles()
+end, { desc = "Find recent files" })
+
+map("n", "<Leader>fl", function()
+  require("fzf-lua").resume()
+end, { desc = "Resume last search" })
+
 -- Grep functionality
 if vim.fn.executable("rg") == 1 or vim.fn.executable("grep") == 1 then
   map("n", "<Leader>fs", function()
@@ -100,7 +112,10 @@ end
 
 -- LSP integration (will be enhanced when which-key is migrated)
 map("n", "<Leader>lD", function() require("fzf-lua").diagnostics_document() end, { desc = "Search diagnostics" })
-map("n", "<Leader>ls", function() require("fzf-lua").lsp_document_symbols() end, { desc = "Search symbols" })
+map("n", "<Leader>ls", function() require("fzf-lua").lsp_document_symbols() end, { desc = "Search document symbols" })
+map("n", "<Leader>lS", function() require("fzf-lua").lsp_workspace_symbols() end, { desc = "Search workspace symbols" })
+map("n", "<Leader>ld", function() require("fzf-lua").lsp_definitions() end, { desc = "Go to definitions" })
+map("n", "<Leader>lt", function() require("fzf-lua").lsp_typedefs() end, { desc = "Go to type definitions" })
 
 -- Override default LSP keymaps if fzf-lua is available
 vim.api.nvim_create_autocmd("User", {

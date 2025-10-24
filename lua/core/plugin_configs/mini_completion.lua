@@ -64,10 +64,38 @@ local function setup()
     end
   end, { expr = true, desc = 'Completion: abort' })
 
-  -- Fallback trigger if <C-Space> is intercepted by OS/terminal
+  -- Navigation mappings
+  vim.keymap.set('i', '<Tab>', function()
+    if vim.fn.pumvisible() == 1 then
+      return '<C-n>'
+    else
+      return '<Tab>'
+    end
+  end, { expr = true, desc = 'Completion: next item' })
+
+  vim.keymap.set('i', '<S-Tab>', function()
+    if vim.fn.pumvisible() == 1 then
+      return '<C-p>'
+    else
+      return '<S-Tab>'
+    end
+  end, { expr = true, desc = 'Completion: previous item' })
+
   vim.keymap.set('i', '<C-n>', function()
-    return '<C-Space>'
-  end, { expr = true, desc = 'Completion: trigger (fallback)' })
+    if vim.fn.pumvisible() == 1 then
+      return '<C-n>'
+    else
+      return '<C-Space>'
+    end
+  end, { expr = true, desc = 'Completion: next item or trigger' })
+
+  vim.keymap.set('i', '<C-p>', function()
+    if vim.fn.pumvisible() == 1 then
+      return '<C-p>'
+    else
+      return '<C-Space>'
+    end
+  end, { expr = true, desc = 'Completion: previous item or trigger' })
 
   -- Which-key labels for completion commands
   local wk = require('which-key')
@@ -75,7 +103,10 @@ local function setup()
     { '<C-Space>', desc = 'Completion: trigger', mode = 'i' },
     { '<C-e>', desc = 'Completion: abort', mode = 'i' },
     { '<CR>', desc = 'Completion: confirm', mode = 'i' },
-    { '<C-n>', desc = 'Completion: trigger (fallback)', mode = 'i' },
+    { '<Tab>', desc = 'Completion: next item', mode = 'i' },
+    { '<S-Tab>', desc = 'Completion: previous item', mode = 'i' },
+    { '<C-n>', desc = 'Completion: next item or trigger', mode = 'i' },
+    { '<C-p>', desc = 'Completion: previous item or trigger', mode = 'i' },
   })
 end
 
