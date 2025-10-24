@@ -32,7 +32,7 @@ end
 -- FzfLua keymaps
 map("n", "<Leader>f.", "<cmd>FzfLua<cr>", { desc = "Open FzfLua" })
 map("n", "<localleader>,", function()
-  require("fzf-lua").oldfiles({ include_current_session = true })
+  require("fzf-lua").oldfiles({ cwd_only = true, include_current_session = true })
 end, { desc = "Recent files and buffers" })
 map("n", "<leader>fb", "<cmd>FzfLua grep_curbuf<cr>", { desc = "Find in current buffer" })
 map("n", "<Leader>fq", "<cmd>FzfLua quickfix<cr>", { desc = "Quickfix List" })
@@ -50,7 +50,7 @@ map("n", "<Leader>fB", function()
 end, { desc = "Find buffers" })
 
 map("n", "<Leader>fo", function()
-  require("fzf-lua").oldfiles()
+  require("fzf-lua").oldfiles({ cwd_only = true })
 end, { desc = "Find recent files" })
 
 map("n", "<Leader>fl", function()

@@ -47,10 +47,6 @@
       "src": "https://github.com/stevearc/overseer.nvim"
     },
     "plenary.nvim": [],
-    "smart-splits.nvim": {
-      "rev": "9a26145",
-      "src": "https://github.com/mrjones2014/smart-splits.nvim"
-    },
     "vim-fugitive": [],
     "which-key.nvim": {
       "rev": "b4177e3",

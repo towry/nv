@@ -195,6 +195,7 @@ end
 function M.command_history()
   local fzflua = require("fzf-lua")
   fzflua.command_history({
+    cwd_only = true,
     winopts = { fullscreen = false },
   })
 end

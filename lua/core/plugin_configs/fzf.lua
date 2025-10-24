@@ -21,7 +21,7 @@ return {
     
     require("fzf-lua").setup({
       defaults = {
-        formatter = "path.dirname_first",
+        formatter = "path.filename_first",
         file_icons = true,
       },
       winopts = {
