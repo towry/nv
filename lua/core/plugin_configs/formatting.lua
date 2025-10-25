@@ -133,9 +133,9 @@ M.setup_whichkey = function()
   end
   
   which_key.add({
-    { "<leader>l", group = "LSP" },
+    { "<leader>l", group = "LSP", icon = { icon = "λ", color = "purple" } },
     { "<leader>lf", desc = "Format buffer/selection" },
-    { "<leader>u", group = "UI/Toggles" },
+    { "<leader>u", group = "UI/Toggles", icon = { icon = "󱠇", color = "cyan" } },
     { "<leader>uf", desc = "Toggle autoformat (buffer)" },
     { "<leader>uF", desc = "Toggle autoformat (global)" },
   })

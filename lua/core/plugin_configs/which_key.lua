@@ -39,19 +39,19 @@ wk.setup({
 
 -- Centralized group labels only
 wk.add({
-  { "<leader>b", group = "Buffers" },
-  { "<leader>n", group = "New" },
-  { "<leader>f", group = "Find/Pickers" },
-  { "<leader>j", group = "Jump" },
-  { "<leader>g", group = "Git" },
-  { "<leader>gf", group = "Git Finders" },
-  { "<leader>gh", group = "Hunk" },
-  { "<leader>l", group = "LSP" },
-  { "<leader>t", group = "Tasks" },
-  { "<leader>u", group = "Toggle/UI" },
-  { "<C-w>", group = "Windows" },
-  { "<C-c>", group = "Control" },
-  { "<localleader>", group = "Local Leader" },
+  { "<leader>b", group = "Buffers", icon = { icon = "󰓩", color = "blue" } },
+  { "<leader>n", group = "New", icon = { icon = "󰝒", color = "green" } },
+  { "<leader>f", group = "Find/Pickers", icon = { icon = "󰍉", color = "cyan" } },
+  { "<leader>j", group = "Jump", icon = { icon = "󰑓", color = "magenta" } },
+  { "<leader>g", group = "Git", icon = { icon = "󰊢", color = "orange" } },
+  { "<leader>gf", group = "Git Finders", icon = { icon = "󰊢", color = "orange" } },
+  { "<leader>gh", group = "Hunk", icon = { icon = "󰡕", color = "red" } },
+  { "<leader>l", group = "LSP", icon = { icon = "λ", color = "purple" } },
+  { "<leader>t", group = "Tasks", icon = { icon = "󰓟", color = "yellow" } },
+  { "<leader>u", group = "Toggle/UI", icon = { icon = "󱠇", color = "cyan" } },
+  { "<C-w>", group = "Windows", icon = { icon = "", color = "white" } },
+  { "<C-c>", group = "Control", icon = { icon = "󰘒", color = "red" } },
+  { "<localleader>", group = "Local Leader", icon = { icon = "󰘒", color = "gray" } },
 }, { mode = "n" })
 
 -- Snacks.nvim picker descriptions
