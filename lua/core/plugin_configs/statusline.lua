@@ -52,6 +52,18 @@ local function section_lsp_servers(trunc_width)
   return '󰰎 ' .. table.concat(names, ',')
 end
 
+--- Custom diff summary section showing hunk counts from mini.diff
+--- @param trunc_width number Minimum window width to display
+--- @return string Diff summary content
+local function section_diff_summary(trunc_width)
+  if ms.is_truncated(trunc_width) then return '' end
+  
+  local summary = vim.b.minidiff_summary_string
+  if not summary or summary == '' then return '' end
+  
+  return summary
+end
+
 -- ============================================================================
 -- STATUSLINE LAYOUT CONFIGURATION
 -- ============================================================================
@@ -66,6 +78,7 @@ local function build_active_statusline()
   -- LEFT SECTION: Mode, Git, Diagnostics, Filename
   local mode, mode_hl = ms.section_mode({ trunc_width = 120 })
   local git           = ms.section_git({ trunc_width = 75 })
+  local diff          = section_diff_summary(75)
   local diagnostics   = ms.section_diagnostics({ trunc_width = 75 })
   local filename      = ms.section_filename({ trunc_width = 140 })
   
@@ -78,7 +91,7 @@ local function build_active_statusline()
   return ms.combine_groups({
     -- Left side
     { hl = mode_hl,                   strings = { mode } },
-    { hl = 'MiniStatuslineDevinfo',   strings = { git, diagnostics } },
+    { hl = 'MiniStatuslineDevinfo',   strings = { git, diff, diagnostics } },
     '%<', -- Truncation point
     { hl = 'MiniStatuslineFilename',  strings = { filename } },
     
