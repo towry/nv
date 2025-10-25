@@ -6,7 +6,7 @@ local M = {}
 pcall(function()
   local legendary = require('legendary')
 
-  -- Set up legendary with fzf-lua UI provider
+  -- Set up legendary with snacks.nvim picker UI provider
   legendary.setup({
     select_prompt = ' legendary.nvim ',
     include_builtin = true,
@@ -40,9 +40,10 @@ pcall(function()
     },
   })
 
-  local ok_fzf = pcall(require, 'fzf-lua')
-  if ok_fzf then
-    require('fzf-lua').register_ui_select()
+  -- Set up UI selector with snacks.nvim picker
+  local ok_snacks = pcall(require, 'snacks')
+  if ok_snacks then
+    -- snacks.nvim picker is used by default for UI selection
   end
 end)
 

@@ -1,9 +1,9 @@
-# Agent Guidelines for neonvim
+# Agent Guidelines
 
 ## Build/Test/Lint
-- **Test config load**: `NVIM_APPNAME=neonvim nvim --headless -c 'quit'`
-- **Run with config**: `NVIM_APPNAME=neonvim nvim`
-- **Reinstall plugins**: `NVIM_APPNAME=neonvim nvim --headless -c "lua require('core.plugins')" -c 'quit'`
+- **Test config load**: `nvim --headless -c 'quit'`
+- **Run with config**: `nvim`
+- **Reinstall plugins**: `nvim --headless -c "lua require('core.plugins')" -c 'quit'`
 - No formal linter; validate Lua syntax via headless load test above
 
 ## Code Style

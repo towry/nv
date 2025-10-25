@@ -1,4 +1,4 @@
--- Which-key configuration for neonvim
+-- Which-key configuration
 -- Provides key binding hints and leader groups
 
 local M = {}
@@ -41,9 +41,10 @@ wk.setup({
 wk.add({
   { "<leader>b", group = "Buffers" },
   { "<leader>n", group = "New" },
-  { "<leader>f", group = "Find" },
+  { "<leader>f", group = "Find/Pickers" },
   { "<leader>j", group = "Jump" },
   { "<leader>g", group = "Git" },
+  { "<leader>gf", group = "Git Finders" },
   { "<leader>gh", group = "Hunk" },
   { "<leader>l", group = "LSP" },
   { "<leader>t", group = "Tasks" },
@@ -52,6 +53,52 @@ wk.add({
   { "<C-c>", group = "Control" },
   { "<localleader>", group = "Local Leader" },
 }, { mode = "n" })
+
+-- Snacks.nvim picker descriptions
+wk.add({
+  -- File/Finder pickers (<Leader>f)
+  { "<leader>ff", desc = "Files (CWD)" },
+  { "<leader>fB", desc = "Buffers" },
+  { "<leader>fo", desc = "Recent files (CWD)" },
+  { "<leader>fl", desc = "Resume last picker" },
+  { "<leader>f<CR>", desc = "Resume last picker" },
+  { "<leader>fXa", desc = "Config files" },
+  { "<leader>fg", desc = "Live grep" },
+  { "<leader>fs", desc = "Static grep" },
+  { "<leader>fc", desc = "Grep word under cursor" },
+  { "<leader>fb", desc = "Grep in buffer" },
+  { "<leader>f/", desc = "Live grep in buffer" },
+  { "<leader>fq", desc = "Quickfix list" },
+  { "<leader>fj", desc = "Jumplist" },
+  { "<leader>f'", desc = "Marks" },
+  { "<leader>fr", desc = "Registers" },
+  { "<leader>f;", desc = "Command history" },
+  { "<leader>f:", desc = "Commands" },
+  { "<leader>fh", desc = "Help tags" },
+  { "<leader>fk", desc = "Keymaps" },
+  { "<leader>fm", desc = "Man pages" },
+  { "<leader>f.", desc = "Picker of pickers" },
+  
+  -- Git pickers (<Leader>gf)
+  { "<leader>gfb", desc = "Git branches" },
+  { "<leader>gfc", desc = "Git commits (repo)" },
+  { "<leader>gfC", desc = "Git commits (file)" },
+  { "<leader>gfs", desc = "Git status" },
+  
+  -- LSP pickers (<Leader>l)
+  { "<leader>ls", desc = "Document symbols" },
+  { "<leader>lS", desc = "Workspace symbols" },
+  { "<leader>lG", desc = "Workspace symbols" },
+  { "<leader>lD", desc = "Document diagnostics" },
+  
+  -- Local leader
+  { ",", desc = "Recent files/buffers" },
+}, { mode = "n" })
+
+-- Visual mode picker descriptions
+wk.add({
+  { "<leader>fg", desc = "Grep selection" },
+}, { mode = "v" })
 
 -- Defer Copilot mappings until after plugins load
 vim.defer_fn(function()

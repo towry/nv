@@ -20,7 +20,6 @@
       "rev": "fb654cb",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
-
     "jj-diffconflicts": {
       "rev": "bee239e",
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
@@ -61,6 +60,10 @@
     "plenary.nvim": {
       "rev": "b9fd522",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "f33aa20",
+      "src": "https://github.com/folke/snacks.nvim"
     },
     "vim-fugitive": {
       "rev": "61b51c0",

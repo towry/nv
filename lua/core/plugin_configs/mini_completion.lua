@@ -39,12 +39,19 @@ local function setup()
       -- Complete with text from current line
       complete_with_line = '<C-l>',
     },
-    -- Filetypes to exclude from completion
-    filetype_exclude = {
-      'TelescopePrompt',
-      'fzf',
-      'OverseerForm',
-    },
+
+  })
+
+  -- Disable mini.completion in UI prompt buffers
+  local disable_ft = { 'snacks_picker_input', 'TelescopePrompt', 'fzf', 'OverseerForm' }
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = disable_ft,
+    callback = function(args)
+      vim.b[args.buf].minicompletion_disable = true
+      local ok, mc = pcall(require, 'mini.completion')
+      if ok then mc.stop({ 'completion', 'info', 'signature' }) end
+    end,
+    desc = 'Disable mini.completion in UI prompt buffers',
   })
 
   -- Additional mappings for confirm/abort

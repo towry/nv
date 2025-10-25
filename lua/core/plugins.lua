@@ -17,8 +17,8 @@ local plugins = {
   -- Which-key (key binding hints) - loaded early to avoid race conditions
   'https://github.com/folke/which-key.nvim',
 
-  -- FZF Lua (fuzzy finder)
-  'https://github.com/ibhagwan/fzf-lua',
+  -- Snacks.nvim (plugin collection with picker)
+  'https://github.com/folke/snacks.nvim',
   -- Legendary.nvim (keybind finder and management)
   'https://github.com/mrjones2014/legendary.nvim',
   -- Git integration
@@ -58,6 +58,11 @@ pcall(function()
   vim.cmd('packadd mini.nvim')
 end)
 
+-- Eager-load snacks.nvim so snacks.* configs can initialize during verification
+pcall(function()
+  vim.cmd('packadd snacks.nvim')
+end)
+
 -- NOTE: mini.nvim managed by vim.pack; see claude.md Autoload patterns.
 
 -- Initialize mini.icons early to provide devicons for downstream consumers (e.g., fzf-lua)
@@ -83,8 +88,7 @@ end)
 -- plugin is not present.
 pcall(require, 'core.plugin_configs.which_key')
 pcall(require, 'core.plugin_configs.statusline')
-pcall(require, 'core.plugin_configs.fzf')
-pcall(require, 'core.plugin_configs.fzf_keymaps')
+
 pcall(require, 'core.plugin_configs.legendary')
 pcall(require, 'core.plugin_configs.fugitive')
 pcall(require, 'core.plugin_configs.mini_diff')
@@ -98,6 +102,8 @@ pcall(require, 'core.plugin_configs.treesitter')
 pcall(require, 'core.plugin_configs.formatting')
 pcall(require, 'core.plugin_configs.oil')
 pcall(require, 'core.plugin_configs.lsp_plugin')
+pcall(require, 'core.plugin_configs.snacks')
+pcall(require, 'core.plugin_configs.snacks_picker')
 -- NOTE: LSP core behavior lives in core/lsp.lua (native API); optional installers in core/plugin_configs/lsp_plugin.lua
 pcall(require, 'core.lsp')
 -- Task runner and terminal/session helpers

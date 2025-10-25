@@ -1,4 +1,4 @@
--- Core LSP settings for neonvim (editor behavior only)
+-- Core LSP settings (editor behavior only)
 local M = {}
 
 vim.diagnostic.config({
