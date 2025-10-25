@@ -23,7 +23,6 @@ local plugins = {
   'https://github.com/mrjones2014/legendary.nvim',
   -- Git integration
   'https://github.com/tpope/vim-fugitive',
-  'https://github.com/lewis6991/gitsigns.nvim',
   -- Git conflict resolution
   'https://github.com/whiteinge/diffconflicts',
   'https://github.com/rafikdraoui/jj-diffconflicts',
@@ -88,7 +87,7 @@ pcall(require, 'core.plugin_configs.fzf')
 pcall(require, 'core.plugin_configs.fzf_keymaps')
 pcall(require, 'core.plugin_configs.legendary')
 pcall(require, 'core.plugin_configs.fugitive')
-pcall(require, 'core.plugin_configs.gitsigns')
+pcall(require, 'core.plugin_configs.mini_diff')
 pcall(require, 'core.plugin_configs.copilot')
 pcall(require, 'core.plugin_configs.mini_completion')
 pcall(require, 'core.plugin_configs.mini_snippets')

@@ -20,10 +20,7 @@
       "rev": "fb654cb",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
-    "gitsigns.nvim": {
-      "rev": "20ad441",
-      "src": "https://github.com/lewis6991/gitsigns.nvim"
-    },
+
     "jj-diffconflicts": {
       "rev": "bee239e",
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
