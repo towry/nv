@@ -39,7 +39,7 @@ local function setup()
   -- Which-key labels for operators
   local wk = require('which-key')
   wk.add({
-    { '<leader>o', group = 'Operators' },
+    { '<localleader>o', group = 'Operators' },
     { 'gX', desc = 'Operator: exchange', mode = { 'n', 'v' } },
     { 'gR', desc = 'Operator: replace', mode = { 'n', 'v' } },
     { 'g=', desc = 'Operator: evaluate', mode = { 'n', 'v' } },

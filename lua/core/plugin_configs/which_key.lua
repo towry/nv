@@ -50,6 +50,8 @@ wk.add({
   { "<leader>l", group = "LSP", icon = { icon = "λ", color = "purple" } },
   { "<leader>t", group = "Tasks", icon = { icon = "󰓟", color = "yellow" } },
   { "<leader>u", group = "Toggle/UI", icon = { icon = "󱠇", color = "cyan" } },
+  { "<leader>o", group = "Opencode", icon = { icon = "󱚣", color = "cyan" } },
+  { "<localleader>o", group = "Operators", icon = { icon = "󰘴", color = "magenta" } },
   { "<C-w>", group = "Windows", icon = { icon = "", color = "white" } },
   { "<C-c>", group = "Control", icon = { icon = "󰘒", color = "red" } },
   { "<localleader>", group = "Local Leader", icon = { icon = "󰘒", color = "gray" } },
