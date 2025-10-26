@@ -76,8 +76,8 @@ vim.keymap.set('n', '<Leader>f<CR>', function()
   snacks.picker.resume()
 end, { desc = 'Resume last picker' })
 
--- 5. , (localleader): Recent files/buffers
-vim.keymap.set('n', ',', function()
+-- 5. <localleader>,: Recent files/buffers
+vim.keymap.set('n', '<localleader>,', function()
   snacks.picker.recent()
 end, { desc = 'Recent files/buffers' })
 

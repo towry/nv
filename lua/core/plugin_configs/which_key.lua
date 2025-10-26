@@ -15,6 +15,7 @@ wk.setup({
   notify = true,
   triggers = {
     { "<auto>", mode = "nixsotc" },
+    { ",", mode = "n" },
   },
   delay = function(ctx) 
     return ctx.plugin and 0 or 150 
@@ -90,9 +91,6 @@ wk.add({
   { "<leader>lS", desc = "Workspace symbols" },
   { "<leader>lG", desc = "Workspace symbols" },
   { "<leader>lD", desc = "Document diagnostics" },
-  
-  -- Local leader
-  { ",", desc = "Recent files/buffers" },
 }, { mode = "n" })
 
 -- Visual mode picker descriptions
