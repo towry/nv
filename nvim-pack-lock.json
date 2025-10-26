@@ -53,6 +53,10 @@
       "rev": "7e1cd77",
       "src": "https://github.com/stevearc/oil.nvim"
     },
+    "opencode.nvim": {
+      "rev": "9ab9bc5",
+      "src": "https://github.com/NickvanDyke/opencode.nvim"
+    },
     "overseer.nvim": {
       "rev": "c77c78b",
       "src": "https://github.com/stevearc/overseer.nvim"

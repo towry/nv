@@ -17,6 +17,7 @@ o.swapfile = false
 o.backup = false
 o.undodir = vim.fn.stdpath("config") .. "/undo"
 o.undofile = true
+o.autoread = true
 
 -- shorter update time
 o.updatetime = 300

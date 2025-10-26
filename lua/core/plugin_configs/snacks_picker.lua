@@ -7,32 +7,42 @@ if not ok then
 	return
 end
 
--- Helper function to extract visual selection text
--- From design.md section "Visual Selection Helper"
+-- Helper function to extract visual selection text (vim.api only)
+-- NOTE: Visual marks ('<, '>) are only updated AFTER exiting visual mode
+-- This function should be called from a mapping that exits visual mode first
 local function get_visual_selection()
-	local mode = vim.fn.mode()
-	if mode == "v" or mode == "V" or mode == "" then
-		local start_pos = vim.fn.getpos("'<")
-		local end_pos = vim.fn.getpos("'>")
-		local lines = vim.fn.getline(start_pos[2], end_pos[2])
-		if #lines == 0 then
-			return ""
-		end
-
-		if #lines == 1 then
-			return string.sub(lines[1], start_pos[3], end_pos[3])
-		else
-			lines[1] = string.sub(lines[1], start_pos[3])
-			lines[#lines] = string.sub(lines[#lines], 1, end_pos[3])
-			return table.concat(lines, "\n")
-		end
+	local ok, util = pcall(require, "utils.visual_selection")
+	if not ok then
+		vim.notify("visual selection util missing", vim.log.levels.ERROR)
+		return ""
 	end
-	return ""
+	return util.get_visual_selection()
 end
 
 -- Helper function to check if executable is available
 local function is_executable(cmd)
 	return vim.fn.executable(cmd) == 1
+end
+
+-- Sanitize query to a single line for Snacks input
+local function sanitize_query(s)
+	if not s or s == "" then
+		return ""
+	end
+	s = s:gsub("[\r\n]+", " ")
+	s = s:gsub("%s+", " ")
+	s = s:gsub("^%s+", ""):gsub("%s+$", "")
+	return s
+end
+
+-- Escape regex meta characters so ripgrep treats it literally
+-- We escape any non-alphanumeric and non-whitespace character.
+-- This emulates a fixed-string search without relying on rg -F flags.
+local function escape_rg_regex(s)
+	if not s or s == "" then
+		return ""
+	end
+	return (s:gsub("([^%w%s])", "\\%1"))
 end
 
 -- Helper function to check if in git repository
@@ -80,7 +90,7 @@ end, { desc = "Resume last picker" })
 
 -- 5. <localleader>,: Recent files/buffers
 vim.keymap.set("n", "<localleader>,", function()
-	snacks.picker.recent()
+	snacks.picker.recent({ cwd = vim.fn.getcwd(), filter = { cwd = vim.fn.getcwd() } })
 end, { desc = "Recent files/buffers" })
 
 -- 6. <Leader>fXa: Config files picker
@@ -117,22 +127,30 @@ end, { desc = "Live grep" })
 
 -- 9. <Leader>fg (visual): Grep with visual selection
 vim.keymap.set("v", "<Leader>fg", function()
-	local selection = get_visual_selection()
-	if selection and selection ~= "" then
-		if is_executable("rg") then
-			-- Exit visual mode first
-			vim.cmd("normal! " .. vim.fn.mode() == "V" and "V" or "v")
-			snacks.picker.grep({
-				live = true,
-				search = selection,
-				cwd = vim.fn.getcwd(),
-			})
+	-- Exit visual mode first to update '< and '> marks
+	local esc_key = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+	vim.api.nvim_feedkeys(esc_key, "x", false)
+
+	-- Schedule the grep to run after visual mode is exited
+	vim.schedule(function()
+		local selection = get_visual_selection()
+		local query = sanitize_query(selection)
+		-- For visual selection, default to literal match (fixed string)
+		local literal = escape_rg_regex(query)
+		if literal ~= "" then
+			if is_executable("rg") then
+				snacks.picker.grep({
+					live = true,
+					search = literal,
+					cwd = vim.fn.getcwd(),
+				})
+			else
+				vim.notify("ripgrep not found. Please install ripgrep for grep.", vim.log.levels.WARN)
+			end
 		else
-			vim.notify("ripgrep not found. Please install ripgrep for grep.", vim.log.levels.WARN)
+			vim.notify("No visual selection found", vim.log.levels.WARN)
 		end
-	else
-		vim.notify("No visual selection found", vim.log.levels.WARN)
-	end
+	end)
 end, { desc = "Grep selection" })
 
 -- 10. <Leader>fc: Grep word under cursor
@@ -347,7 +365,7 @@ vim.keymap.set("n", "<Leader>f.", function()
 		{
 			text = "Recent",
 			action = function()
-				snacks.picker.recent()
+				snacks.picker.recent({ cwd = vim.fn.getcwd(), filter = { cwd = vim.fn.getcwd() } })
 			end,
 		},
 		{

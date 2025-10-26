@@ -19,6 +19,8 @@ local plugins = {
 
   -- Snacks.nvim (plugin collection with picker)
   'https://github.com/folke/snacks.nvim',
+  -- opencode.nvim (AI assistant integration)
+  'https://github.com/NickvanDyke/opencode.nvim',
   -- Legendary.nvim (keybind finder and management)
   'https://github.com/mrjones2014/legendary.nvim',
   -- Git integration
@@ -104,6 +106,7 @@ pcall(require, 'core.plugin_configs.oil')
 pcall(require, 'core.plugin_configs.lsp_plugin')
 pcall(require, 'core.plugin_configs.snacks')
 pcall(require, 'core.plugin_configs.snacks_picker')
+pcall(require, 'core.plugin_configs.opencode')
 -- NOTE: LSP core behavior lives in core/lsp.lua (native API); optional installers in core/plugin_configs/lsp_plugin.lua
 pcall(require, 'core.lsp')
 -- Task runner and terminal/session helpers
