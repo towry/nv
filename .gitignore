@@ -32,7 +32,6 @@ pack/plugins/opt/*
 .idea/
 pack/
 tmp/
-llm/kiro/
 llm/diff
 lua/nix-env.lua
 lua/settings_env.lua
