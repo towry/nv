@@ -45,6 +45,8 @@ local plugins = {
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
   -- Formatting
   'https://github.com/stevearc/conform.nvim',
+  -- Linting
+  'https://github.com/mfussenegger/nvim-lint',
 }
 
 -- Add and optionally load plugins. Using confirm=false will skip interactive prompt in headless.
@@ -102,6 +104,10 @@ pcall(require, 'core.plugin_configs.mini_surround')
 pcall(require, 'core.plugin_configs.mini_operators')
 pcall(require, 'core.plugin_configs.treesitter')
 pcall(require, 'core.plugin_configs.formatting')
+pcall(function()
+  local linting = require('core.plugin_configs.linting')
+  linting.setup()
+end)
 pcall(require, 'core.plugin_configs.oil')
 pcall(require, 'core.plugin_configs.lsp_plugin')
 pcall(require, 'core.plugin_configs.snacks')
