@@ -3,7 +3,7 @@
 -- NOTE: core/lsp.lua prefers this over tsserver when this module exists
 local cmd
 if vim.fn.executable('vtsls') == 1 then
-  cmd = { 'vtsls' }
+  cmd = { 'vtsls', '--stdio' }
 else
   -- Fallback to typescript-language-server; install vtsls for better perf/features
   cmd = { 'typescript-language-server', '--stdio' }
