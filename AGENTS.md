@@ -23,6 +23,7 @@
 - **Per-plugin configs**: `lua/core/plugin_configs/*.lua` (one file per plugin, loaded via `pcall`)
 - **Keymaps**: Global in `lua/core/keymaps.lua`, plugin-specific in plugin config files
 - **Pack layout**: `pack/plugins/{start,opt}` ignored by git; manual install documented in `pack/plugins/README.md`
+- **Documentation**: Technical reference docs go in `llm/steering/`, with brief pointers in this file
 
 ## Version Control (jj/Jujutsu)
 
@@ -34,3 +35,4 @@
 
 - See @.github/copilot-instructions.md for detailed conventions (keymap strategy, research-first workflow, safe changes)
 - When user ask how to about plugin usage, use the research-first workflow to provide accurate and helpful responses, collect documentation from external resources
+- **Legendary.nvim**: See llm/steering/legendary-setup.md for registration patterns and API usage

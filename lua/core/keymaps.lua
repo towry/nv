@@ -14,6 +14,10 @@ map('n', '0', [[col('.') == 1 ? 'za' : '0']], { noremap = true, silent = true, e
 
 -- legendary.nvim keymap (keybind finder)
 map('n', '<leader>k', ":lua require('legendary').find()<CR>", opts)
+map('x', '<leader>k', "<Cmd>lua require('legendary').find()<CR>", opts)
+
+-- YankCode: Copy selected code with file path and line numbers
+map('x', '<leader>yc', ':YankCode<CR>', opts)
 
 -- Git mergetool conditional keymaps
 local git_utils = require('utils.git')
