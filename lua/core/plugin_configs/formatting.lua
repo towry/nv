@@ -12,6 +12,11 @@ M.config = {
     timeout_ms = 1500,
   },
   format_on_save = function(bufnr)
+    -- Skip formatting for big files (Snacks sets ft=bigfile)
+    if vim.bo[bufnr].filetype == "bigfile" then
+      return nil
+    end
+    
     -- Skip in diff mode
     if vim.wo[0].diff then
       return nil
@@ -73,6 +78,12 @@ M.setup_commands = function()
         start = { args.line1, 0 },
         ["end"] = { args.line2, end_line:len() },
       }
+    end
+    
+    -- Skip formatting for big files (Snacks sets ft=bigfile)
+    if vim.bo.filetype == "bigfile" then
+      vim.notify("File too large for formatting", vim.log.levels.WARN)
+      return
     end
     
     local ok, conform = pcall(require, "conform")

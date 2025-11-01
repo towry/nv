@@ -9,6 +9,7 @@ end
 
 -- Configure snacks.nvim picker with global settings
 snacks.setup({
+	bigfile = { enabled = true },
 	picker = {
 		-- Global picker settings
 		prompt = " ",

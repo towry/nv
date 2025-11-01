@@ -26,9 +26,11 @@ local function get_project_root()
   return vim.fn.fnamemodify(vim.fn.findfile('.git', '.;'), ':h')
 end
 
-local function is_large_file()
-  local size = vim.fn.getfsize(vim.fn.expand('%:p'))
-  return size > 100 * 1024 -- 100KB threshold
+
+
+-- Helper function to detect large files (using snacks bigfile)
+local function is_current_file_big()
+  return vim.bo.filetype == "bigfile"
 end
 
 -- Helper to detect project types
@@ -206,9 +208,10 @@ M.setup_commands = function()
       return
     end
 
-    -- Check if file is too large
-    if is_large_file() then
-      vim.notify("File too large for linting (>100KB)", vim.log.levels.WARN)
+    -- Check if file is too large using snacks bigfile detection
+    
+    if is_current_file_big() then
+      vim.notify("File too large for linting", vim.log.levels.WARN)
       return
     end
 
@@ -340,7 +343,8 @@ M.setup_autocmds = function()
 
       if autolint then
         -- Skip in diff mode and for large files
-        if not vim.wo[0].diff and not is_large_file() then
+        
+        if not vim.wo[0].diff and not is_current_file_big() then
           -- Debounce linting to avoid performance issues
           local debounce_timer = vim.b.lint_debounce_timer
           if debounce_timer then
