@@ -29,3 +29,4 @@ end
 -- lightweight status line
 -- TODO: move to options.lua
 vim.o.laststatus = 2
+vim.cmd("colorscheme miniwinter")
