@@ -17,6 +17,7 @@ local core = {
 	"core.keymaps",
 	"core.autocmds",
 	"core.plugins",
+	"core.highlight_overrides",
 }
 
 for _, mod in ipairs(core) do
@@ -29,4 +30,4 @@ end
 -- lightweight status line
 -- TODO: move to options.lua
 vim.o.laststatus = 2
-vim.cmd("colorscheme miniwinter")
+vim.cmd("colorscheme vim")
