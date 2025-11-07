@@ -4,7 +4,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-pcall(require, "settings_env")
+-- pcall(require, "settings_env")
 pcall(require, "nix-env")
 
 -- bootstrap: add lua path based on current init.lua location (works with -u)

@@ -44,49 +44,49 @@ end
 
 -- Apply all highlight overrides
 function M.apply()
-  -- Core floating windows
-  set("NormalFloat", { fg = 15, bg = 0, ctermfg = 15, ctermbg = 0 })
-  set("FloatBorder", { fg = 8, bg = 0, ctermfg = 8, ctermbg = 0 })
-  set("FloatTitle", { fg = 15, bg = 8, ctermfg = 15, ctermbg = 8, bold = true })
+  -- Core floating windows - let vim colorscheme handle backgrounds naturally
+  set("NormalFloat", { fg = "NONE", bg = "NONE" })
+  set("FloatBorder", { fg = "NONE", bg = "NONE" })
+  set("FloatTitle", { fg = "NONE", bg = "NONE", bold = true })
 
-  -- Popup menu (completion)
-  set("Pmenu", { fg = 15, bg = 8, ctermfg = 15, ctermbg = 8 })
-  set("PmenuSel", { fg = 0, bg = 7, ctermfg = 0, ctermbg = 7 })
-  set("PmenuSbar", { fg = 15, bg = 8, ctermfg = 15, ctermbg = 8 })
-  set("PmenuThumb", { fg = 7, bg = 7, ctermfg = 7, ctermbg = 7 })
+  -- Popup menu (completion) - use subtle background differentiation
+  set("Pmenu", { fg = "NONE", bg = "NONE" })
+  set("PmenuSel", { fg = "NONE", bg = "NONE", bold = true })
+  set("PmenuSbar", { fg = "NONE", bg = "NONE" })
+  set("PmenuThumb", { fg = "NONE", bg = "NONE" })
 
-  -- LSP/Diagnostics floating
-  set("DiagnosticFloatingError", { fg = 1, bg = 0, ctermfg = 1, ctermbg = 0 })
-  set("DiagnosticFloatingWarn", { fg = 3, bg = 0, ctermfg = 3, ctermbg = 0 })
-  set("DiagnosticFloatingInfo", { fg = 6, bg = 0, ctermfg = 6, ctermbg = 0 })
-  set("DiagnosticFloatingHint", { fg = 4, bg = 0, ctermfg = 4, ctermbg = 0 })
+  -- LSP/Diagnostics floating - blend with main background
+  set("DiagnosticFloatingError", { fg = "NONE", bg = "NONE" })
+  set("DiagnosticFloatingWarn", { fg = "NONE", bg = "NONE" })
+  set("DiagnosticFloatingInfo", { fg = "NONE", bg = "NONE" })
+  set("DiagnosticFloatingHint", { fg = "NONE", bg = "NONE" })
 
   -- LSP signature
-  set("LspSignatureActiveParameter", { fg = 0, bg = 4, ctermfg = 0, ctermbg = 4, bold = true })
+  set("LspSignatureActiveParameter", { fg = "NONE", bg = "NONE", bold = true })
 
   -- nvim-tree (if used)
-  set("NvimTreeNormalFloat", { fg = 15, bg = 0, ctermfg = 15, ctermbg = 0 })
+  set("NvimTreeNormalFloat", { fg = "NONE", bg = "NONE" })
 
   -- nvim-notify (if used)
-  set("NotifyBackground", { fg = 15, bg = 0, ctermfg = 15, ctermbg = 0 })
-  set("NotifyERRORBorder", { fg = 1, bg = 0, ctermfg = 1, ctermbg = 0 })
-  set("NotifyWARNBorder", { fg = 3, bg = 0, ctermfg = 3, ctermbg = 0 })
-  set("NotifyINFOBorder", { fg = 6, bg = 0, ctermfg = 6, ctermbg = 0 })
-  set("NotifyDEBUGBorder", { fg = 8, bg = 0, ctermfg = 8, ctermbg = 0 })
-  set("NotifyTRACEBorder", { fg = 4, bg = 0, ctermfg = 4, ctermbg = 0 })
+  set("NotifyBackground", { fg = "NONE", bg = "NONE" })
+  set("NotifyERRORBorder", { fg = "NONE", bg = "NONE" })
+  set("NotifyWARNBorder", { fg = "NONE", bg = "NONE" })
+  set("NotifyINFOBorder", { fg = "NONE", bg = "NONE" })
+  set("NotifyDEBUGBorder", { fg = "NONE", bg = "NONE" })
+  set("NotifyTRACEBorder", { fg = "NONE", bg = "NONE" })
 
   -- nvim-cmp (if used)
-  set("CmpBorder", { fg = 8, bg = 0, ctermfg = 8, ctermbg = 0 })
-  set("CmpDocBorder", { fg = 8, bg = 0, ctermfg = 8, ctermbg = 0 })
-  set("CmpDocNormal", { fg = 15, bg = 0, ctermfg = 15, ctermbg = 0 })
-  set("CmpItemAbbr", { fg = 15, ctermfg = 15 })
-  set("CmpItemAbbrMatch", { fg = 7, ctermfg = 7, bold = true })
-  set("CmpItemAbbrMatchFuzzy", { fg = 7, ctermfg = 7, bold = true })
-  set("CmpItemKind", { fg = 6, ctermfg = 6 })
-  set("CmpItemMenu", { fg = 8, ctermfg = 8 })
+  set("CmpBorder", { fg = "NONE", bg = "NONE" })
+  set("CmpDocBorder", { fg = "NONE", bg = "NONE" })
+  set("CmpDocNormal", { fg = "NONE", bg = "NONE" })
+  set("CmpItemAbbr", { fg = "NONE" })
+  set("CmpItemAbbrMatch", { fg = "NONE", bold = true })
+  set("CmpItemAbbrMatchFuzzy", { fg = "NONE", bold = true })
+  set("CmpItemKind", { fg = "NONE" })
+  set("CmpItemMenu", { fg = "NONE" })
 
   -- Quickfix/location windows
-  set("QuickFixLine", { fg = 15, bg = 4, ctermfg = 15, ctermbg = 4 })
+  set("QuickFixLine", { fg = "NONE", bg = "NONE", bold = true })
 end
 
 -- Setup function with autocmd for persistence
