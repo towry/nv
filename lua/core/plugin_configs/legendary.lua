@@ -3,11 +3,9 @@
 
 local M = {}
 
-pcall(function()
-  local legendary = require('legendary')
-
-  -- Set up legendary with snacks.nvim picker UI provider
-  legendary.setup({
+-- Register legendary setup using the utils helper
+require('utils.legendary').register({
+  setup = {
     select_prompt = ' legendary.nvim ',
     include_builtin = true,
     include_legendary_cmds = true,
@@ -38,13 +36,13 @@ pcall(function()
         noremap = true,
       },
     },
-  })
+  },
+})
 
-  -- Set up UI selector with snacks.nvim picker
-  local ok_snacks = pcall(require, 'snacks')
-  if ok_snacks then
-    -- snacks.nvim picker is used by default for UI selection
-  end
-end)
+-- Set up UI selector with snacks.nvim picker
+local ok_snacks = pcall(require, 'snacks')
+if ok_snacks then
+  -- snacks.nvim picker is used by default for UI selection
+end
 
 return M

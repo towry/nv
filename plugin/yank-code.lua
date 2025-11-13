@@ -1,9 +1,15 @@
 -- Yank code block with file path and line numbers
 -- Usage: Select text in visual mode and run :YankCode
 
+---@class YankCodeUtil
+---@field yank_code fun(): nil
+---@field get_file_extension fun(filepath: string): string
+---@field get_relative_path fun(filepath: string): string
 local M = {}
 
 -- Get the file extension for syntax highlighting
+---@param filepath string
+---@return string
 local function get_file_extension(filepath)
   local ext = filepath:match("%.([^%.]+)$")
   if not ext then
@@ -11,6 +17,7 @@ local function get_file_extension(filepath)
   end
 
   -- Map common extensions to their syntax highlighting names
+  ---@type table<string, string>
   local ext_map = {
     js = "javascript",
     ts = "typescript",
@@ -65,6 +72,8 @@ local function get_file_extension(filepath)
 end
 
 -- Get relative path from current working directory
+---@param filepath string
+---@return string
 local function get_relative_path(filepath)
   local cwd = vim.fn.getcwd()
   if filepath:sub(1, #cwd) == cwd then
@@ -75,6 +84,7 @@ local function get_relative_path(filepath)
 end
 
 -- Main function to yank code block
+---@return nil
 function M.yank_code()
   -- Get visual selection range
   local start_line = vim.fn.line("'<")
@@ -123,22 +133,80 @@ end, {
 })
 
 -- Register with legendary if available
-pcall(function()
-  local legendary = require('legendary')
-  legendary.commands({
+require('utils.legendary').register({
+  -- Add an item to copy file path/directory from current buffer
+  items = {
     {
-      ':YankCode',
-      description = '󰆏 YankCode: Copy selected code with file path and line numbers (visual mode)',
+      itemgroup = 'YankCode',
+      description = 'YankCode utilities',
+      commands = {
+        {
+          ':YankCopyFilePath',
+          description = 'Copy current buffer absolute file path to clipboard',
+        },
+        {
+          ':YankCopyFileRelPath',
+          description = 'Copy current buffer relative file path to clipboard',
+        },
+        {
+          ':YankCopyFileDir',
+          description = 'Copy current buffer directory path to clipboard',
+        },
+        {
+          ':YankCode',
+          description = '󰆏 YankCode: Copy selected code with file path and line numbers (visual mode)',
+        },
+      },
+      keymaps = {
+        {
+          '<leader>yp',
+          ':YankCopyFilePath<CR>',
+          description = 'Copy current file absolute path',
+          mode = { 'n' },
+        },
+        {
+          '<leader>yr',
+          ':YankCopyFileRelPath<CR>',
+          description = 'Copy current file relative path',
+          mode = { 'n' },
+        },
+        {
+          '<leader>yd',
+          ':YankCopyFileDir<CR>',
+          description = 'Copy current file directory',
+          mode = { 'n' },
+        },
+        {
+          '<leader>yc',
+          ':YankCode<CR>',
+          description = '󰆏 YankCode: Copy code with context',
+          mode = { 'x' }, -- visual/select mode
+        },
+      },
     },
-  })
-  legendary.keymaps({
-    {
-      '<leader>yc',
-      ':YankCode<CR>',
-      description = '󰆏 YankCode: Copy code with context',
-      mode = { 'x' }, -- visual/select mode
-    },
-  })
-end)
+  },
+})
+
+-- Commands for copying file path/directory
+
+---Copy absolute path of current buffer
+vim.api.nvim_create_user_command('YankCopyFilePath', function()
+  local path = vim.fn.expand('%:p')
+  require('utils.path').copy_to_clipboard(path)
+end, { desc = 'Copy absolute file path to clipboard' })
+
+---Copy relative path of current buffer (relative to CWD)
+vim.api.nvim_create_user_command('YankCopyFileRelPath', function()
+  local path = vim.fn.expand('%:p')
+  local rel = require('utils.path').get_relative_path(path)
+  require('utils.path').copy_to_clipboard(rel)
+end, { desc = 'Copy relative file path to clipboard' })
+
+---Copy directory of current buffer
+vim.api.nvim_create_user_command('YankCopyFileDir', function()
+  local path = vim.fn.expand('%:p')
+  local dir = require('utils.path').get_directory_path(path)
+  require('utils.path').copy_to_clipboard(dir)
+end, { desc = 'Copy buffer directory path to clipboard' })
 
 return M
