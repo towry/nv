@@ -20,6 +20,10 @@
       "rev": "fb654cb",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
+    "gitsigns.nvim": {
+      "rev": "20ad4419564d6e22b189f6738116b38871082332",
+      "src": "git@github.com:/lewis6991/gitsigns.nvim"
+    },
     "jj-diffconflicts": {
       "rev": "bee239e",
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
@@ -39,6 +43,10 @@
     "mini.nvim": {
       "rev": "64a23d0",
       "src": "https://github.com/echasnovski/mini.nvim"
+    },
+    "nvim-lint": {
+      "rev": "a0718addcf9b5ba4325eb45441020bb824af9503",
+      "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
       "rev": "ececa53",

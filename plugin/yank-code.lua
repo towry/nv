@@ -132,57 +132,50 @@ end, {
   range = true, -- Allow range selection
 })
 
--- Register with legendary if available
+-- Register commands individually with legendary (no nested groups)
 require('utils.legendary').register({
-  -- Add an item to copy file path/directory from current buffer
-  items = {
+  commands = {
     {
-      itemgroup = 'YankCode',
-      description = 'YankCode utilities',
-      commands = {
-        {
-          ':YankCopyFilePath',
-          description = 'Copy current buffer absolute file path to clipboard',
-        },
-        {
-          ':YankCopyFileRelPath',
-          description = 'Copy current buffer relative file path to clipboard',
-        },
-        {
-          ':YankCopyFileDir',
-          description = 'Copy current buffer directory path to clipboard',
-        },
-        {
-          ':YankCode',
-          description = '󰆏 YankCode: Copy selected code with file path and line numbers (visual mode)',
-        },
-      },
-      keymaps = {
-        {
-          '<leader>yp',
-          ':YankCopyFilePath<CR>',
-          description = 'Copy current file absolute path',
-          mode = { 'n' },
-        },
-        {
-          '<leader>yr',
-          ':YankCopyFileRelPath<CR>',
-          description = 'Copy current file relative path',
-          mode = { 'n' },
-        },
-        {
-          '<leader>yd',
-          ':YankCopyFileDir<CR>',
-          description = 'Copy current file directory',
-          mode = { 'n' },
-        },
-        {
-          '<leader>yc',
-          ':YankCode<CR>',
-          description = '󰆏 YankCode: Copy code with context',
-          mode = { 'x' }, -- visual/select mode
-        },
-      },
+      ':YankCopyFilePath',
+      description = 'Copy current buffer absolute file path to clipboard',
+    },
+    {
+      ':YankCopyFileRelPath',
+      description = 'Copy current buffer relative file path to clipboard',
+    },
+    {
+      ':YankCopyFileDir',
+      description = 'Copy current buffer directory path to clipboard',
+    },
+    {
+      ':YankCode',
+      description = '󰆏 YankCode: Copy selected code with file path and line numbers (visual mode)',
+    },
+  },
+  keymaps = {
+    {
+      '<leader>yp',
+      ':YankCopyFilePath<CR>',
+      description = 'Copy current file absolute path',
+      mode = { 'n' },
+    },
+    {
+      '<leader>yr',
+      ':YankCopyFileRelPath<CR>',
+      description = 'Copy current file relative path',
+      mode = { 'n' },
+    },
+    {
+      '<leader>yd',
+      ':YankCopyFileDir<CR>',
+      description = 'Copy current file directory',
+      mode = { 'n' },
+    },
+    {
+      '<leader>yc',
+      ':YankCode<CR>',
+      description = '󰆏 YankCode: Copy code with context',
+      mode = { 'x' }, -- visual/select mode
     },
   },
 })
