@@ -84,26 +84,30 @@ local function get_relative_path(filepath)
 end
 
 -- Main function to yank code block
+---@param opts table|nil Options table with absolute_path boolean
 ---@return nil
-function M.yank_code()
+function M.yank_code(opts)
+  opts = opts or {}
+  local use_absolute_path = opts.absolute_path or false
+
   -- Get visual selection range
   local start_line = vim.fn.line("'<")
   local end_line = vim.fn.line("'>")
 
   -- Get current file path
   local filepath = vim.fn.expand("%:p")
-  local relative_path = get_relative_path(filepath)
+  local display_path = use_absolute_path and filepath or get_relative_path(filepath)
 
   -- Get selected text
   local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
   local selected_text = table.concat(lines, "\n")
 
   -- Get file extension for syntax highlighting
-  local file_ext = get_file_extension(relative_path)
+  local file_ext = get_file_extension(display_path)
 
   -- Format the output
   local output = string.format("%s:L%d-L%d\n\n```%s\n%s\n```",
-    relative_path,
+    display_path,
     start_line,
     end_line,
     file_ext,
@@ -115,20 +119,29 @@ function M.yank_code()
   vim.fn.setreg("*", output) -- Also set the selection register for compatibility
 
   -- Show notification
-  vim.notify(string.format("Yanked %d lines from %s (L%d-L%d)",
+  local path_type = use_absolute_path and "absolute" or "relative"
+  vim.notify(string.format("Yanked %d lines from %s %s (L%d-L%d)",
     end_line - start_line + 1,
-    relative_path,
+    path_type,
+    display_path,
     start_line,
     end_line),
     vim.log.levels.INFO
   )
 end
 
--- Create the command
+-- Create the commands
 vim.api.nvim_create_user_command("YankCode", function()
-  M.yank_code()
+  M.yank_code({ absolute_path = false })
 end, {
-  desc = "Yank selected code block with file path and line numbers",
+  desc = "Yank selected code block with relative file path and line numbers",
+  range = true, -- Allow range selection
+})
+
+vim.api.nvim_create_user_command("YankCodeAbs", function()
+  M.yank_code({ absolute_path = true })
+end, {
+  desc = "Yank selected code block with absolute file path and line numbers",
   range = true, -- Allow range selection
 })
 
@@ -149,7 +162,11 @@ require('utils.legendary').register({
     },
     {
       ':YankCode',
-      description = '󰆏 YankCode: Copy selected code with file path and line numbers (visual mode)',
+      description = '󰆏 YankCode: Copy selected code with relative file path and line numbers (visual mode)',
+    },
+    {
+      ':YankCodeAbs',
+      description = '󰆏 YankCode [Abs]: Copy selected code with absolute file path and line numbers (visual mode)',
     },
   },
   keymaps = {
@@ -174,7 +191,13 @@ require('utils.legendary').register({
     {
       '<leader>yc',
       ':YankCode<CR>',
-      description = '󰆏 YankCode: Copy code with context',
+      description = '󰆏 YankCode: Copy code with relative path',
+      mode = { 'x' }, -- visual/select mode
+    },
+    {
+      '<leader>yC',
+      ':YankCodeAbs<CR>',
+      description = '󰆏 YankCode [Abs]: Copy code with absolute path',
       mode = { 'x' }, -- visual/select mode
     },
   },
