@@ -11,6 +11,14 @@ pcall(require, "nix-env")
 local config_path = vim.fn.fnamemodify(vim.env.MYVIMRC or (debug.getinfo(1, "S").source:sub(2)), ":h")
 package.path = config_path .. "/lua/?.lua;" .. config_path .. "/lua/?/init.lua;" .. package.path
 
+-- enable experimental UI
+require("vim._extui").enable({
+	enable = true,
+	msg = {
+		target = "msg",
+	},
+})
+
 -- core modules
 local core = {
 	"core.options",
