@@ -35,4 +35,8 @@ o.foldmethod = "expr"
 o.foldexpr = "nvim_treesitter#foldexpr()"
 o.foldenable = false
 
+-- Fix cursor shape escape sequences in tmux
+-- Disable cursor shape changes to prevent \E[2 q artifacts
+o.guicursor = ""
+
 return {}
