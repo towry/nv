@@ -37,17 +37,13 @@ local function setup()
     },
   })
 
-  -- Insert mode keymaps for snippet jumping
-  vim.keymap.set('i', '<C-j>', function() return require('mini.snippets').jump(1) end, { expr = true, desc = 'Snippet: jump forward' })
-  vim.keymap.set('i', '<C-k>', function() return require('mini.snippets').jump(-1) end, { expr = true, desc = 'Snippet: jump backward' })
-
   -- Ensure snippet navigation works in select mode as well
-  vim.keymap.set('s', '<C-j>', function()
-    return mini_snippets.jump(1)
+  vim.keymap.set({ 'i', 's' }, '<C-j>', function()
+    mini_snippets.session.jump('next')
   end, { desc = 'Snippet: jump forward' })
 
-  vim.keymap.set('s', '<C-k>', function()
-    return mini_snippets.jump(-1)
+  vim.keymap.set({ 'i', 's' }, '<C-k>', function()
+    mini_snippets.session.jump('prev')
   end, { desc = 'Snippet: jump backward' })
 
   -- Which-key labels for snippet navigation

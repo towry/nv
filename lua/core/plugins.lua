@@ -28,8 +28,8 @@ local plugins = {
   -- Git conflict resolution
   'https://github.com/whiteinge/diffconflicts',
   'https://github.com/rafikdraoui/jj-diffconflicts',
-  -- AI Copilot
-  'https://github.com/github/copilot.vim',
+  -- AI Copilot (disabled)
+  -- 'https://github.com/github/copilot.vim',
   -- Mini.nvim (library of Lua modules)
   'https://github.com/echasnovski/mini.nvim',
   -- Term/session flatten and task runner
@@ -96,7 +96,7 @@ pcall(require, 'core.plugin_configs.statusline')
 pcall(require, 'core.plugin_configs.legendary')
 pcall(require, 'core.plugin_configs.fugitive')
 pcall(require, 'core.plugin_configs.mini_diff')
-pcall(require, 'core.plugin_configs.copilot')
+-- pcall(require, 'core.plugin_configs.copilot')  -- Copilot disabled
 pcall(require, 'core.plugin_configs.mini_completion')
 pcall(require, 'core.plugin_configs.mini_snippets')
 pcall(require, 'core.plugin_configs.mini_splitjoin')

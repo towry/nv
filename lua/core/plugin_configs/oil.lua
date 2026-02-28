@@ -51,9 +51,8 @@ pcall(function()
 end)
 
 -- Register with legendary if available
-pcall(function()
-  local legendary = require('legendary')
-  legendary.items({
+require('utils.legendary').register({
+  itemgroups = {
     {
       itemgroup = 'Oil',
       icon = ' ',
@@ -62,7 +61,7 @@ pcall(function()
         { '<leader>e', toggle_oil, description = 'Oil: Toggle' },
       },
     },
-  })
-end)
+  }
+})
 
 return M

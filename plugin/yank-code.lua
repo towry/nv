@@ -1,9 +1,15 @@
 -- Yank code block with file path and line numbers
 -- Usage: Select text in visual mode and run :YankCode
 
+---@class YankCodeUtil
+---@field yank_code fun(): nil
+---@field get_file_extension fun(filepath: string): string
+---@field get_relative_path fun(filepath: string): string
 local M = {}
 
 -- Get the file extension for syntax highlighting
+---@param filepath string
+---@return string
 local function get_file_extension(filepath)
   local ext = filepath:match("%.([^%.]+)$")
   if not ext then
@@ -11,6 +17,7 @@ local function get_file_extension(filepath)
   end
 
   -- Map common extensions to their syntax highlighting names
+  ---@type table<string, string>
   local ext_map = {
     js = "javascript",
     ts = "typescript",
@@ -65,6 +72,8 @@ local function get_file_extension(filepath)
 end
 
 -- Get relative path from current working directory
+---@param filepath string
+---@return string
 local function get_relative_path(filepath)
   local cwd = vim.fn.getcwd()
   if filepath:sub(1, #cwd) == cwd then
@@ -75,25 +84,30 @@ local function get_relative_path(filepath)
 end
 
 -- Main function to yank code block
-function M.yank_code()
+---@param opts table|nil Options table with absolute_path boolean
+---@return nil
+function M.yank_code(opts)
+  opts = opts or {}
+  local use_absolute_path = opts.absolute_path or false
+
   -- Get visual selection range
   local start_line = vim.fn.line("'<")
   local end_line = vim.fn.line("'>")
 
   -- Get current file path
   local filepath = vim.fn.expand("%:p")
-  local relative_path = get_relative_path(filepath)
+  local display_path = use_absolute_path and filepath or get_relative_path(filepath)
 
   -- Get selected text
   local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
   local selected_text = table.concat(lines, "\n")
 
   -- Get file extension for syntax highlighting
-  local file_ext = get_file_extension(relative_path)
+  local file_ext = get_file_extension(display_path)
 
   -- Format the output
   local output = string.format("%s:L%d-L%d\n\n```%s\n%s\n```",
-    relative_path,
+    display_path,
     start_line,
     end_line,
     file_ext,
@@ -105,40 +119,110 @@ function M.yank_code()
   vim.fn.setreg("*", output) -- Also set the selection register for compatibility
 
   -- Show notification
-  vim.notify(string.format("Yanked %d lines from %s (L%d-L%d)",
+  local path_type = use_absolute_path and "absolute" or "relative"
+  vim.notify(string.format("Yanked %d lines from %s %s (L%d-L%d)",
     end_line - start_line + 1,
-    relative_path,
+    path_type,
+    display_path,
     start_line,
     end_line),
     vim.log.levels.INFO
   )
 end
 
--- Create the command
+-- Create the commands
 vim.api.nvim_create_user_command("YankCode", function()
-  M.yank_code()
+  M.yank_code({ absolute_path = false })
 end, {
-  desc = "Yank selected code block with file path and line numbers",
+  desc = "Yank selected code block with relative file path and line numbers",
   range = true, -- Allow range selection
 })
 
--- Register with legendary if available
-pcall(function()
-  local legendary = require('legendary')
-  legendary.commands({
+vim.api.nvim_create_user_command("YankCodeAbs", function()
+  M.yank_code({ absolute_path = true })
+end, {
+  desc = "Yank selected code block with absolute file path and line numbers",
+  range = true, -- Allow range selection
+})
+
+-- Register commands individually with legendary (no nested groups)
+require('utils.legendary').register({
+  commands = {
+    {
+      ':YankCopyFilePath',
+      description = 'Copy current buffer absolute file path to clipboard',
+    },
+    {
+      ':YankCopyFileRelPath',
+      description = 'Copy current buffer relative file path to clipboard',
+    },
+    {
+      ':YankCopyFileDir',
+      description = 'Copy current buffer directory path to clipboard',
+    },
     {
       ':YankCode',
-      description = '󰆏 YankCode: Copy selected code with file path and line numbers (visual mode)',
+      description = '󰆏 YankCode: Copy selected code with relative file path and line numbers (visual mode)',
     },
-  })
-  legendary.keymaps({
+    {
+      ':YankCodeAbs',
+      description = '󰆏 YankCode [Abs]: Copy selected code with absolute file path and line numbers (visual mode)',
+    },
+  },
+  keymaps = {
+    {
+      '<leader>yp',
+      ':YankCopyFilePath<CR>',
+      description = 'Copy current file absolute path',
+      mode = { 'n' },
+    },
+    {
+      '<leader>yr',
+      ':YankCopyFileRelPath<CR>',
+      description = 'Copy current file relative path',
+      mode = { 'n' },
+    },
+    {
+      '<leader>yd',
+      ':YankCopyFileDir<CR>',
+      description = 'Copy current file directory',
+      mode = { 'n' },
+    },
     {
       '<leader>yc',
       ':YankCode<CR>',
-      description = '󰆏 YankCode: Copy code with context',
+      description = '󰆏 YankCode: Copy code with relative path',
       mode = { 'x' }, -- visual/select mode
     },
-  })
-end)
+    {
+      '<leader>yC',
+      ':YankCodeAbs<CR>',
+      description = '󰆏 YankCode [Abs]: Copy code with absolute path',
+      mode = { 'x' }, -- visual/select mode
+    },
+  },
+})
+
+-- Commands for copying file path/directory
+
+---Copy absolute path of current buffer
+vim.api.nvim_create_user_command('YankCopyFilePath', function()
+  local path = vim.fn.expand('%:p')
+  require('utils.path').copy_to_clipboard(path)
+end, { desc = 'Copy absolute file path to clipboard' })
+
+---Copy relative path of current buffer (relative to CWD)
+vim.api.nvim_create_user_command('YankCopyFileRelPath', function()
+  local path = vim.fn.expand('%:p')
+  local rel = require('utils.path').get_relative_path(path)
+  require('utils.path').copy_to_clipboard(rel)
+end, { desc = 'Copy relative file path to clipboard' })
+
+---Copy directory of current buffer
+vim.api.nvim_create_user_command('YankCopyFileDir', function()
+  local path = vim.fn.expand('%:p')
+  local dir = require('utils.path').get_directory_path(path)
+  require('utils.path').copy_to_clipboard(dir)
+end, { desc = 'Copy buffer directory path to clipboard' })
 
 return M

@@ -101,44 +101,45 @@ wk.add({
 }, { mode = "v" })
 
 -- Defer Copilot mappings until after plugins load
-vim.defer_fn(function()
-  -- Copilot mappings for which-key
-  wk.add({
-    { "<leader>ua", function() 
-      if vim.g.copilot_auto_mode == true then
-        vim.g.copilot_auto_mode = false
-        vim.g.copilot_filetypes = vim.tbl_extend("keep", { ["*"] = false }, vim.g.copilot_filetypes)
-        vim.cmd("Copilot disable")
-        vim.notify("Copilot auto mode disabled ✕")
-      else
-        vim.g.copilot_auto_mode = true
-        vim.g.copilot_filetypes = vim.tbl_extend("keep", { ["*"] = true }, vim.g.copilot_filetypes)
-        vim.cmd("Copilot enable")
-        vim.fn["copilot#OnFileType"]()
-        vim.notify("Copilot auto mode enabled ✔")
-      end
-    end, desc = "Toggle Copilot auto" },
-    { "<leader>u<cr>", function() 
-      if vim.g.copilot_enabled == 1 then
-        vim.cmd('Copilot disable')
-        vim.notify('🤖 Copilot disabled', vim.log.levels.INFO, { key = 'copilot' })
-      else
-        vim.cmd('Copilot enable')
-        vim.notify('🤖 Copilot enabled', vim.log.levels.INFO, { key = 'copilot' })
-      end
-    end, desc = "Toggle Copilot" },
-  }, { mode = "n" })
-
-  -- Which-key labels for Overseer are picked up via desc on keymaps in normal mode under <leader>t group
-
-
-  -- Insert mode Copilot mappings
-  wk.add({
-    { "<M-j>", desc = "Copilot next suggestion" },
-    { "<M-k>", desc = "Copilot previous suggestion" },
-    { "<C-g>", desc = "Complete with Copilot" },
-  }, { mode = "i" })
-end, 200)
+-- NOTE: Copilot disabled - commented out mappings
+-- vim.defer_fn(function()
+--   -- Copilot mappings for which-key
+--   wk.add({
+--     { "<leader>ua", function() 
+--       if vim.g.copilot_auto_mode == true then
+--         vim.g.copilot_auto_mode = false
+--         vim.g.copilot_filetypes = vim.tbl_extend("keep", { ["*"] = false }, vim.g.copilot_filetypes)
+--         vim.cmd("Copilot disable")
+--         vim.notify("Copilot auto mode disabled ✕")
+--       else
+--         vim.g.copilot_auto_mode = true
+--         vim.g.copilot_filetypes = vim.tbl_extend("keep", { ["*"] = true }, vim.g.copilot_filetypes)
+--         vim.cmd("Copilot enable")
+--         vim.fn["copilot#OnFileType"]()
+--         vim.notify("Copilot auto mode enabled ✔")
+--       end
+--     end, desc = "Toggle Copilot auto" },
+--     { "<leader>u<cr>", function() 
+--       if vim.g.copilot_enabled == 1 then
+--         vim.cmd('Copilot disable')
+--         vim.notify('🤖 Copilot disabled', vim.log.levels.INFO, { key = 'copilot' })
+--       else
+--         vim.cmd('Copilot enable')
+--         vim.notify('🤖 Copilot enabled', vim.log.levels.INFO, { key = 'copilot' })
+--       end
+--     end, desc = "Toggle Copilot" },
+--   }, { mode = "n" })
+--
+--   -- Which-key labels for Overseer are picked up via desc on keymaps in normal mode under <leader>t group
+--
+--
+--   -- Insert mode Copilot mappings
+--   wk.add({
+--     { "<M-j>", desc = "Copilot next suggestion" },
+--     { "<M-k>", desc = "Copilot previous suggestion" },
+--     { "<C-g>", desc = "Complete with Copilot" },
+--   }, { mode = "i" })
+-- end, 200)
 
 -- Helper functions for complex mappings
 local function smart_close_window()
