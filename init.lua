@@ -11,13 +11,18 @@ pcall(require, "nix-env")
 local config_path = vim.fn.fnamemodify(vim.env.MYVIMRC or (debug.getinfo(1, "S").source:sub(2)), ":h")
 package.path = config_path .. "/lua/?.lua;" .. config_path .. "/lua/?/init.lua;" .. package.path
 
--- enable experimental UI
-require("vim._extui").enable({
-	enable = true,
-	msg = {
-		target = "msg",
-	},
-})
+-- enable experimental UI when available (Neovim nightly/newer builds)
+do
+	local ok, extui = pcall(require, "vim._extui")
+	if ok and extui and type(extui.enable) == "function" then
+		extui.enable({
+			enable = true,
+			msg = {
+				target = "msg",
+			},
+		})
+	end
+end
 
 -- core modules
 local core = {
