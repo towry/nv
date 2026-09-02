@@ -38,9 +38,6 @@ local plugins = {
 
   -- File explorer
   'https://github.com/stevearc/oil.nvim',
-  -- LSP plugins
-  'https://github.com/williamboman/mason.nvim',
-  'https://github.com/williamboman/mason-lspconfig.nvim',
   -- Treesitter for syntax highlighting (using main branch for active development)
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
   -- Formatting
@@ -109,12 +106,9 @@ pcall(function()
   linting.setup()
 end)
 pcall(require, 'core.plugin_configs.oil')
-pcall(require, 'core.plugin_configs.lsp_plugin')
 pcall(require, 'core.plugin_configs.snacks')
 pcall(require, 'core.plugin_configs.snacks_picker')
 pcall(require, 'core.plugin_configs.opencode')
--- NOTE: LSP core behavior lives in core/lsp.lua (native API); optional installers in core/plugin_configs/lsp_plugin.lua
-pcall(require, 'core.lsp')
 -- Task runner and terminal/session helpers
 -- Flatten: route CLI edits into existing instance; open in new tab for visibility
 pcall(function()

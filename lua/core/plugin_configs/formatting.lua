@@ -8,7 +8,6 @@ end
 -- Conform.nvim configuration
 M.config = {
   default_format_opts = {
-    lsp_format = "fallback",
     timeout_ms = 1500,
   },
   format_on_save = function(bufnr)
@@ -34,7 +33,7 @@ M.config = {
     end
     
     if autoformat then
-      return { timeout_ms = 500, lsp_format = "fallback" }
+      return { timeout_ms = 500 }
     end
     
     return nil
@@ -144,7 +143,6 @@ M.setup_whichkey = function()
   end
   
   which_key.add({
-    { "<leader>l", group = "LSP", icon = { icon = "λ", color = "purple" } },
     { "<leader>lf", desc = "Format buffer/selection" },
     { "<leader>u", group = "UI/Toggles", icon = { icon = "󱠇", color = "cyan" } },
     { "<leader>uf", desc = "Toggle autoformat (buffer)" },

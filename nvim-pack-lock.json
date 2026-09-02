@@ -32,14 +32,6 @@
       "rev": "6de819b",
       "src": "https://github.com/mrjones2014/legendary.nvim"
     },
-    "mason-lspconfig.nvim": {
-      "rev": "0a695750d747db1e7e70bcf0267ef8951c95fc83",
-      "src": "https://github.com/williamboman/mason-lspconfig.nvim"
-    },
-    "mason.nvim": {
-      "rev": "16ba83bfc8a25f52bb545134f5bee082b195c460",
-      "src": "https://github.com/williamboman/mason.nvim"
-    },
     "mini.nvim": {
       "rev": "232ceeb14f7f7e849056309b85cb2fed712db46f",
       "src": "https://github.com/echasnovski/mini.nvim"
@@ -47,10 +39,6 @@
     "nvim-lint": {
       "rev": "d48f3a76189d03b2239f6df1b2f7e3fa8353743b",
       "src": "https://github.com/mfussenegger/nvim-lint"
-    },
-    "nvim-lspconfig": {
-      "rev": "9573948c38bfabeec353ae7dd7d3ffec4c506a6b",
-      "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",

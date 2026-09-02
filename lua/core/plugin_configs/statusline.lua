@@ -35,23 +35,6 @@ end
 -- 3. Be self-contained and testable
 -- ============================================================================
 
---- Custom LSP section showing active server names
---- @param trunc_width number Minimum window width to display
---- @return string LSP section content
-local function section_lsp_servers(trunc_width)
-  if ms.is_truncated(trunc_width) then return '' end
-  
-  local clients = vim.lsp.get_clients({ bufnr = 0 })
-  if #clients == 0 then return '' end
-  
-  local names = {}
-  for _, client in ipairs(clients) do
-    table.insert(names, client.name)
-  end
-  
-  return '󰰎 ' .. table.concat(names, ',')
-end
-
 --- Custom diff summary section showing hunk counts from mini.diff
 --- @param trunc_width number Minimum window width to display
 --- @return string Diff summary content
@@ -82,9 +65,8 @@ local function build_active_statusline()
   local diagnostics   = ms.section_diagnostics({ trunc_width = 75 })
   local filename      = ms.section_filename({ trunc_width = 140 })
   
-  -- RIGHT SECTION: Fileinfo, LSP, Location
+  -- RIGHT SECTION: Fileinfo, Location
   local fileinfo      = ms.section_fileinfo({ trunc_width = 120 })
-  local lsp           = section_lsp_servers(75)
   local location      = ms.section_location({ trunc_width = 75 })
   
   -- Combine into groups with highlights
@@ -100,7 +82,6 @@ local function build_active_statusline()
     
     -- Right side
     { hl = 'MiniStatuslineFileinfo',  strings = { fileinfo } },
-    { hl = 'MiniStatuslineFileinfo',  strings = { lsp } },
     { hl = 'MiniStatuslineLocation',  strings = { location } },
   })
 end

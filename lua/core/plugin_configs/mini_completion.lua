@@ -21,14 +21,6 @@ local function setup()
       info = { height = 25, width = 80, border = 'single' },
       signature = { height = 25, width = 80, border = 'single' },
     },
-    -- LSP source configuration
-    lsp_completion = {
-      source_func = 'omnifunc',
-      auto_setup = false,
-      process_items = function(items, base)
-        return items
-      end,
-    },
     -- Mapping configuration
     mappings = {
       -- Force completion update

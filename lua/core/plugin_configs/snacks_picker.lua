@@ -50,11 +50,6 @@ local function is_git_repo()
 	return vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null"):gsub("%s+", "") == "true"
 end
 
--- Helper function to check if LSP is attached
-local function has_lsp_client()
-	return #vim.lsp.get_active_clients({ bufnr = 0 }) > 0
-end
-
 -- P1.4: Core Pickers (Files, Buffers, Grep)
 ----------------------------------------------
 
@@ -228,76 +223,6 @@ vim.keymap.set("n", "<Leader>gfs", function()
 	end
 end, { desc = "Git status" })
 
--- P1.6: LSP Pickers
--------------------
-
--- 1. gd: LSP definitions (auto-confirm if single result)
-vim.keymap.set("n", "gd", function()
-	if has_lsp_client() then
-		snacks.picker.lsp_definitions({ auto_confirm = true })
-	else
-		vim.notify("No LSP client attached", vim.log.levels.WARN)
-	end
-end, { desc = "Go to definition" })
-
--- 2. grr: LSP references
-vim.keymap.set("n", "grr", function()
-	if has_lsp_client() then
-		snacks.picker.lsp_references()
-	else
-		vim.notify("No LSP client attached", vim.log.levels.WARN)
-	end
-end, { desc = "LSP references" })
-
--- 3. gri: LSP implementations
-vim.keymap.set("n", "gri", function()
-	if has_lsp_client() then
-		snacks.picker.lsp_implementations()
-	else
-		vim.notify("No LSP client attached", vim.log.levels.WARN)
-	end
-end, { desc = "LSP implementations" })
-
--- 4. gy: LSP type definitions
-vim.keymap.set("n", "gy", function()
-	if has_lsp_client() then
-		snacks.picker.lsp_type_definitions()
-	else
-		vim.notify("No LSP client attached", vim.log.levels.WARN)
-	end
-end, { desc = "LSP type definitions" })
-
--- 5. <Leader>ls: Document symbols
-vim.keymap.set("n", "<Leader>ls", function()
-	if has_lsp_client() then
-		snacks.picker.lsp_symbols()
-	else
-		vim.notify("No LSP client attached", vim.log.levels.WARN)
-	end
-end, { desc = "Document symbols" })
-
--- 6. <Leader>lS and <Leader>lG: Workspace symbols
-vim.keymap.set("n", "<Leader>lS", function()
-	if has_lsp_client() then
-		snacks.picker.lsp_workspace_symbols()
-	else
-		vim.notify("No LSP client attached", vim.log.levels.WARN)
-	end
-end, { desc = "Workspace symbols" })
-
-vim.keymap.set("n", "<Leader>lG", function()
-	if has_lsp_client() then
-		snacks.picker.lsp_workspace_symbols()
-	else
-		vim.notify("No LSP client attached", vim.log.levels.WARN)
-	end
-end, { desc = "Workspace symbols" })
-
--- 7. <Leader>lD: Document diagnostics
-vim.keymap.set("n", "<Leader>lD", function()
-	snacks.picker.diagnostics_buffer()
-end, { desc = "Document diagnostics" })
-
 -- P1.7: Utility Pickers
 -----------------------
 
@@ -385,16 +310,6 @@ vim.keymap.set("n", "<Leader>f.", function()
 					snacks.picker.git_status()
 				else
 					vim.notify("Not in git repo", vim.log.levels.WARN)
-				end
-			end,
-		},
-		{
-			text = "LSP Symbols",
-			action = function()
-				if has_lsp_client() then
-					snacks.picker.lsp_symbols()
-				else
-					vim.notify("No LSP client", vim.log.levels.WARN)
 				end
 			end,
 		},

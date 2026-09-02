@@ -47,7 +47,6 @@ wk.add({
   { "<leader>g", group = "Git", icon = { icon = "󰊢", color = "orange" } },
   { "<leader>gf", group = "Git Finders", icon = { icon = "󰊢", color = "orange" } },
   { "<leader>gh", group = "Hunk", icon = { icon = "󰡕", color = "red" } },
-  { "<leader>l", group = "LSP", icon = { icon = "λ", color = "purple" } },
   { "<leader>t", group = "Tasks", icon = { icon = "󰓟", color = "yellow" } },
   { "<leader>u", group = "Toggle/UI", icon = { icon = "󱠇", color = "cyan" } },
   { "<leader>o", group = "Opencode", icon = { icon = "󱚣", color = "cyan" } },
@@ -87,12 +86,6 @@ wk.add({
   { "<leader>gfc", desc = "Git commits (repo)" },
   { "<leader>gfC", desc = "Git commits (file)" },
   { "<leader>gfs", desc = "Git status" },
-  
-  -- LSP pickers (<Leader>l)
-  { "<leader>ls", desc = "Document symbols" },
-  { "<leader>lS", desc = "Workspace symbols" },
-  { "<leader>lG", desc = "Workspace symbols" },
-  { "<leader>lD", desc = "Document diagnostics" },
 }, { mode = "n" })
 
 -- Visual mode picker descriptions
@@ -268,16 +261,7 @@ local function register_complex_mappings()
   -- Select pasted text
   vim.keymap.set("n", "g<C-v>", "`[v`]", { desc = "Select pasted text" })
 
-  -- LSP mappings (when LSP is attached)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local bufnr = args.buf
-      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Declaration of current symbol", buffer = bufnr })
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover symbol details", buffer = bufnr })
-      -- NOTE: <C-k> in insert mode is intentionally unbound for LSP to avoid conflict with mini.snippets
-      -- mini.snippets uses <C-k> for jumping backward in snippets
-    end,
-  })
+  -- NOTE: <C-k> in insert mode intentionally left unbound to avoid conflict with mini.snippets
 end
 
 -- Register complex mappings after plugins are loaded
