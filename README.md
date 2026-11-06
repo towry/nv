@@ -41,7 +41,10 @@ local plugins = {
 
 **Update:** `nvim --headless -c "lua require('core.plugins')" -c 'quit'`
 
-**Remove:** Delete from `lua/core/plugins.lua` and `pack/plugins/start/`
+**Remove:** Delete from `lua/core/plugins.lua`, then remove the checkout and lock entry:
+```bash
+nvim --headless -c "lua vim.pack.del({ 'plugin-name' })" -c 'quit'
+```
 
 Docs: `:help vim.pack`
 

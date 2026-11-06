@@ -47,9 +47,6 @@ wk.add({
   { "<leader>g", group = "Git", icon = { icon = "󰊢", color = "orange" } },
   { "<leader>gf", group = "Git Finders", icon = { icon = "󰊢", color = "orange" } },
   { "<leader>gh", group = "Hunk", icon = { icon = "󰡕", color = "red" } },
-  { "<leader>t", group = "Tasks", icon = { icon = "󰓟", color = "yellow" } },
-  { "<leader>u", group = "Toggle/UI", icon = { icon = "󱠇", color = "cyan" } },
-  { "<leader>o", group = "Opencode", icon = { icon = "󱚣", color = "cyan" } },
   { "<localleader>o", group = "Operators", icon = { icon = "󰘴", color = "magenta" } },
   { "<C-w>", group = "Windows", icon = { icon = "", color = "white" } },
   { "<C-c>", group = "Control", icon = { icon = "󰘒", color = "red" } },
@@ -92,47 +89,6 @@ wk.add({
 wk.add({
   { "<leader>fg", desc = "Grep selection" },
 }, { mode = "v" })
-
--- Defer Copilot mappings until after plugins load
--- NOTE: Copilot disabled - commented out mappings
--- vim.defer_fn(function()
---   -- Copilot mappings for which-key
---   wk.add({
---     { "<leader>ua", function() 
---       if vim.g.copilot_auto_mode == true then
---         vim.g.copilot_auto_mode = false
---         vim.g.copilot_filetypes = vim.tbl_extend("keep", { ["*"] = false }, vim.g.copilot_filetypes)
---         vim.cmd("Copilot disable")
---         vim.notify("Copilot auto mode disabled ✕")
---       else
---         vim.g.copilot_auto_mode = true
---         vim.g.copilot_filetypes = vim.tbl_extend("keep", { ["*"] = true }, vim.g.copilot_filetypes)
---         vim.cmd("Copilot enable")
---         vim.fn["copilot#OnFileType"]()
---         vim.notify("Copilot auto mode enabled ✔")
---       end
---     end, desc = "Toggle Copilot auto" },
---     { "<leader>u<cr>", function() 
---       if vim.g.copilot_enabled == 1 then
---         vim.cmd('Copilot disable')
---         vim.notify('🤖 Copilot disabled', vim.log.levels.INFO, { key = 'copilot' })
---       else
---         vim.cmd('Copilot enable')
---         vim.notify('🤖 Copilot enabled', vim.log.levels.INFO, { key = 'copilot' })
---       end
---     end, desc = "Toggle Copilot" },
---   }, { mode = "n" })
---
---   -- Which-key labels for Overseer are picked up via desc on keymaps in normal mode under <leader>t group
---
---
---   -- Insert mode Copilot mappings
---   wk.add({
---     { "<M-j>", desc = "Copilot next suggestion" },
---     { "<M-k>", desc = "Copilot previous suggestion" },
---     { "<C-g>", desc = "Complete with Copilot" },
---   }, { mode = "i" })
--- end, 200)
 
 -- Helper functions for complex mappings
 local function smart_close_window()
@@ -189,13 +145,6 @@ local function register_complex_mappings()
     require('mini.jump2d').start()
   end, { desc = "Jump: labelled (mini.jump2d)" })
 
-  -- Tasks: Overseer basic controls
-  vim.keymap.set("n", "<leader>tt", ":OverseerRun<cr>", { desc = "Tasks: Run" })
-  vim.keymap.set("n", "<leader>tr", ":OverseerRunCmd<cr>", { desc = "Tasks: Run command" })
-  vim.keymap.set("n", "<leader>tl", ":OverseerToggle<cr>", { desc = "Tasks: List/Toggle" })
-  vim.keymap.set("n", "<leader>ta", ":OverseerQuickAction<cr>", { desc = "Tasks: Quick action" })
-  vim.keymap.set("n", "<leader>tq", ":OverseerQuickAction open quickfix<cr>", { desc = "Tasks: Open quickfix for last task" })
-
   -- Quick mappings
   vim.keymap.set("n", "Q", "<cmd>qall<cr>", { desc = "Quit all" })
   vim.keymap.set("n", ";", ":", { desc = "Command mode" })
@@ -234,9 +183,6 @@ local function register_complex_mappings()
       vim.cmd("copen")
     end
   end, { desc = "Switch quickfix window" })
-
-  -- NOTE: Overseer keymaps defined above rely on overseer.nvim being present;
-  -- they are safe even if plugin is not yet loaded (commands are defined by plugin).
 
   -- Fold navigation
   vim.keymap.set("n", "H", function() 

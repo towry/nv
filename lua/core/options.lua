@@ -32,7 +32,7 @@ o.pumblend = 0 -- completion menu
 
 -- folding with treesitter
 o.foldmethod = "expr"
-o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 o.foldenable = false
 
 -- Fix cursor shape escape sequences in tmux
