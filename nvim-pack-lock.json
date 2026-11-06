@@ -1,13 +1,5 @@
 {
   "plugins": {
-    "conform.nvim": {
-      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
-      "src": "https://github.com/stevearc/conform.nvim"
-    },
-    "copilot.vim": {
-      "rev": "a12fd5672110c8aa7e3c8419e28c96943ca179be",
-      "src": "https://github.com/github/copilot.vim"
-    },
     "diffconflicts": {
       "rev": "4972d14",
       "src": "https://github.com/whiteinge/diffconflicts"
@@ -36,10 +28,6 @@
       "rev": "232ceeb14f7f7e849056309b85cb2fed712db46f",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
-    "nvim-lint": {
-      "rev": "d48f3a76189d03b2239f6df1b2f7e3fa8353743b",
-      "src": "https://github.com/mfussenegger/nvim-lint"
-    },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
@@ -48,14 +36,6 @@
     "oil.nvim": {
       "rev": "b91ee5a77a6a9605d9c1aaf4fda74b66082c8297",
       "src": "https://github.com/stevearc/oil.nvim"
-    },
-    "opencode.nvim": {
-      "rev": "6eabb12f1afba7c19f511c95ab356ed4fa5ec60f",
-      "src": "https://github.com/NickvanDyke/opencode.nvim"
-    },
-    "overseer.nvim": {
-      "rev": "a93d9f6d6defdac4bcd6d2c8ba988650e42e0a0e",
-      "src": "https://github.com/stevearc/overseer.nvim"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",

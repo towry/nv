@@ -10,17 +10,15 @@ if not has_vim_pack then
   return M
 end
 
--- Example plugins: small and useful. Adjust as you like.
+-- Plugins kept for reading, diffing and light editing.
 local plugins = {
   -- Utility library many plugins depend on
   'https://github.com/nvim-lua/plenary.nvim',
   -- Which-key (key binding hints) - loaded early to avoid race conditions
   'https://github.com/folke/which-key.nvim',
 
-  -- Snacks.nvim (plugin collection with picker)
+  -- Snacks.nvim (picker and bigfile handling)
   'https://github.com/folke/snacks.nvim',
-  -- opencode.nvim (AI assistant integration)
-  'https://github.com/NickvanDyke/opencode.nvim',
   -- Legendary.nvim (keybind finder and management)
   'https://github.com/mrjones2014/legendary.nvim',
   -- Git integration
@@ -28,22 +26,15 @@ local plugins = {
   -- Git conflict resolution
   'https://github.com/whiteinge/diffconflicts',
   'https://github.com/rafikdraoui/jj-diffconflicts',
-  -- AI Copilot (disabled)
-  -- 'https://github.com/github/copilot.vim',
   -- Mini.nvim (library of Lua modules)
   'https://github.com/echasnovski/mini.nvim',
-  -- Term/session flatten and task runner
+  -- Term/session flatten
   'https://github.com/willothy/flatten.nvim',
-  'https://github.com/stevearc/overseer.nvim',
 
   -- File explorer
   'https://github.com/stevearc/oil.nvim',
   -- Treesitter for syntax highlighting (using main branch for active development)
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
-  -- Formatting
-  'https://github.com/stevearc/conform.nvim',
-  -- Linting
-  'https://github.com/mfussenegger/nvim-lint',
 }
 
 -- Add and optionally load plugins. Using confirm=false will skip interactive prompt in headless.
@@ -93,23 +84,14 @@ pcall(require, 'core.plugin_configs.statusline')
 pcall(require, 'core.plugin_configs.legendary')
 pcall(require, 'core.plugin_configs.fugitive')
 pcall(require, 'core.plugin_configs.mini_diff')
--- pcall(require, 'core.plugin_configs.copilot')  -- Copilot disabled
-pcall(require, 'core.plugin_configs.mini_completion')
 pcall(require, 'core.plugin_configs.mini_snippets')
 pcall(require, 'core.plugin_configs.mini_splitjoin')
 pcall(require, 'core.plugin_configs.mini_surround')
 pcall(require, 'core.plugin_configs.mini_operators')
 pcall(require, 'core.plugin_configs.treesitter')
-pcall(require, 'core.plugin_configs.formatting')
-pcall(function()
-  local linting = require('core.plugin_configs.linting')
-  linting.setup()
-end)
 pcall(require, 'core.plugin_configs.oil')
 pcall(require, 'core.plugin_configs.snacks')
 pcall(require, 'core.plugin_configs.snacks_picker')
-pcall(require, 'core.plugin_configs.opencode')
--- Task runner and terminal/session helpers
 -- Flatten: route CLI edits into existing instance; open in new tab for visibility
 pcall(function()
   require('flatten').setup({
@@ -117,12 +99,5 @@ pcall(function()
     block_for = { gitcommit = true, gitrebase = true },
   })
 end)
-
--- Overseer: lightweight task runner
-pcall(function()
-  require('overseer').setup({})
-end)
-
-
 
 return M
