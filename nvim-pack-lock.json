@@ -5,15 +5,15 @@
       "src": "https://github.com/whiteinge/diffconflicts"
     },
     "flatten.nvim": {
-      "rev": "7252779",
+      "rev": "d92ca41e9c330f45c1b854a80c89c8488a9d730c",
       "src": "https://github.com/willothy/flatten.nvim"
     },
     "fzf-lua": {
-      "rev": "988416cc782dfe28bff3f0da9b8c943b236cd86a",
+      "rev": "11357ee24a9f092b1db503237eb57e2a11e48434",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
+      "rev": "ef707fb93301a9b856f36eae4c8f56f5b988a794",
       "src": "git@github.com:/lewis6991/gitsigns.nvim"
     },
     "jj-diffconflicts": {
@@ -25,16 +25,16 @@
       "src": "https://github.com/mrjones2014/legendary.nvim"
     },
     "mini.nvim": {
-      "rev": "232ceeb14f7f7e849056309b85cb2fed712db46f",
+      "rev": "a321b535c75ca88ba7fddfd8eb5b583fbda50dd6",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
     "nvim-treesitter": {
-      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "rev": "610734c5d3e59761d5f79318d120633374537fa5",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "oil.nvim": {
-      "rev": "b91ee5a77a6a9605d9c1aaf4fda74b66082c8297",
+      "rev": "d3733d933833a0e59b813ecec99341527adf0c28",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
