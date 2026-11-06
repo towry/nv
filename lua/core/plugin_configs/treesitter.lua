@@ -5,6 +5,15 @@
 -- only for lua, vim, vimdoc and query, so start it for every filetype that
 -- has an installed parser. Install new parsers with `:TSInstall <lang>`.
 
+-- Queries live in the plugin's runtime/queries and are only linked into
+-- install_dir by install(). Put them on the runtimepath directly so parsers
+-- already on disk highlight without a network install.
+local pack = vim.pack.get({ 'nvim-treesitter' })
+local ts_root = pack and pack[1] and pack[1].path
+if ts_root and vim.uv.fs_stat(ts_root .. '/runtime/queries') then
+  vim.opt.rtp:append(ts_root .. '/runtime')
+end
+
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('treesitter_start', { clear = true }),
   callback = function(args)
